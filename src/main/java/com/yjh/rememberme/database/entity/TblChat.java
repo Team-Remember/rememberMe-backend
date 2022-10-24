@@ -23,7 +23,7 @@ public class TblChat {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "\"MEMBER_ID\"", nullable = false)
-    private TblMember member;
+    private TblMember memberId;
 
     public Integer getId() {
         return id;
@@ -41,12 +41,12 @@ public class TblChat {
         this.chatContent = chatContent;
     }
 
-    public TblMember getMember() {
-        return member;
+    public TblMember getMemberId() {
+        return memberId;
     }
 
-    public void setMember(TblMember member) {
-        this.member = member;
+    public void setMemberId(TblMember memberId) {
+        this.memberId = memberId;
     }
 
 }

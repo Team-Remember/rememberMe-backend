@@ -15,20 +15,20 @@ public class TblMember {
     @NotNull
     @Lob
     @Column(name = "\"MEMBER_USERNAME\"", nullable = false)
-    private String memberUsername;
+    private String Username;
 
     @NotNull
     @Lob
     @Column(name = "\"MEMBER_PASSWORD\"", nullable = false)
-    private String memberPassword;
+    private String Password;
 
     @NotNull
     @Column(name = "\"MEMBER_REG_DATE\"", nullable = false)
-    private Instant memberRegDate;
+    private Instant RegDate;
 
     @Lob
     @Column(name = "\"MEMBER_EMAIL\"")
-    private String memberEmail;
+    private String Email;
 
     public Integer getId() {
         return id;
@@ -38,36 +38,36 @@ public class TblMember {
         this.id = id;
     }
 
-    public String getMemberUsername() {
-        return memberUsername;
+    public String getUsername() {
+        return Username;
     }
 
-    public void setMemberUsername(String memberUsername) {
-        this.memberUsername = memberUsername;
+    public void setUsername(String Username) {
+        this.Username = Username;
     }
 
-    public String getMemberPassword() {
-        return memberPassword;
+    public String getPassword() {
+        return Password;
     }
 
-    public void setMemberPassword(String memberPassword) {
-        this.memberPassword = memberPassword;
+    public void setPassword(String Password) {
+        this.Password = Password;
     }
 
-    public Instant getMemberRegDate() {
-        return memberRegDate;
+    public Instant getRegDate() {
+        return RegDate;
     }
 
-    public void setMemberRegDate(Instant memberRegDate) {
-        this.memberRegDate = memberRegDate;
+    public void setRegDate(Instant RegDate) {
+        this.RegDate = RegDate;
     }
 
-    public String getMemberEmail() {
-        return memberEmail;
+    public String getEmail() {
+        return Email;
     }
 
-    public void setMemberEmail(String memberEmail) {
-        this.memberEmail = memberEmail;
+    public void setEmail(String Email) {
+        this.Email = Email;
     }
 
 }
