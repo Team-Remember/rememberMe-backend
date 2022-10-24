@@ -1,12 +1,18 @@
 package com.yjh.rememberme.database.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.Instant;
-
+import java.util.Date;
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "\"TBL_LOGIN_LOG\"")
 public class LoginLog {
@@ -17,36 +23,12 @@ public class LoginLog {
 
     @NotNull
     @Column(name = "\"LOGIN_DATE\"", nullable = false)
-    private Instant loginDate;
+    private Date loginDate;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "\"MEMBER_ID\"", nullable = false)
     private Member memberId;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Instant getLoginDate() {
-        return loginDate;
-    }
-
-    public void setLoginDate(Instant loginDate) {
-        this.loginDate = loginDate;
-    }
-
-    public Member getMemberId() {
-        return memberId;
-    }
-
-    public void setMemberId(Member memberId) {
-        this.memberId = memberId;
-    }
 
 }

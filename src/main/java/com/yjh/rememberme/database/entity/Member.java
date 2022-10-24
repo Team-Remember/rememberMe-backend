@@ -1,9 +1,16 @@
 package com.yjh.rememberme.database.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.Instant;
-
+import java.util.Date;
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "\"TBL_MEMBER\"")
 public class Member {
@@ -24,50 +31,16 @@ public class Member {
 
     @NotNull
     @Column(name = "\"MEMBER_REG_DATE\"", nullable = false)
-    private Instant RegDate;
+    private Date RegDate;
 
     @Lob
     @Column(name = "\"MEMBER_EMAIL\"")
     private String Email;
 
-    public Integer getId() {
-        return id;
-    }
+    @NotNull
+    @Lob
+    @Column(name = "member_role", nullable = false)
+    private String Role;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return Username;
-    }
-
-    public void setUsername(String Username) {
-        this.Username = Username;
-    }
-
-    public String getPassword() {
-        return Password;
-    }
-
-    public void setPassword(String Password) {
-        this.Password = Password;
-    }
-
-    public Instant getRegDate() {
-        return RegDate;
-    }
-
-    public void setRegDate(Instant RegDate) {
-        this.RegDate = RegDate;
-    }
-
-    public String getEmail() {
-        return Email;
-    }
-
-    public void setEmail(String Email) {
-        this.Email = Email;
-    }
 
 }
