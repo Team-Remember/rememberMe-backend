@@ -5,25 +5,25 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.Instant;
 
 @Entity
-@Table(name = "\"TBL_LOGIN_LOG\"")
-public class TblLoginLog {
+@Table(name = "\"TBL_CHAT\"")
+public class Chat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "\"LOGIN_LOG_ID\"", nullable = false)
+    @Column(name = "\"CHAT_ID\"", nullable = false)
     private Integer id;
 
     @NotNull
-    @Column(name = "\"LOGIN_DATE\"", nullable = false)
-    private Instant loginDate;
+    @Lob
+    @Column(name = "\"CHAT_CONTENT\"", nullable = false)
+    private String chatContent;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "\"MEMBER_ID\"", nullable = false)
-    private TblMember member;
+    private Member memberId;
 
     public Integer getId() {
         return id;
@@ -33,20 +33,20 @@ public class TblLoginLog {
         this.id = id;
     }
 
-    public Instant getLoginDate() {
-        return loginDate;
+    public String getChatContent() {
+        return chatContent;
     }
 
-    public void setLoginDate(Instant loginDate) {
-        this.loginDate = loginDate;
+    public void setChatContent(String chatContent) {
+        this.chatContent = chatContent;
     }
 
-    public TblMember getMember() {
-        return member;
+    public Member getMemberId() {
+        return memberId;
     }
 
-    public void setMember(TblMember member) {
-        this.member = member;
+    public void setMemberId(Member memberId) {
+        this.memberId = memberId;
     }
 
 }

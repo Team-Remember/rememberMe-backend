@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "\"TBL_OBJECT\"")
-public class TblObject {
+public class Object {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "\"OBJECT_ID\"", nullable = false)
@@ -30,7 +30,7 @@ public class TblObject {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "\"MEMBER_ID\"", nullable = false)
-    private TblMember member;
+    private Member memberId;
 
     public Integer getId() {
         return id;
@@ -64,12 +64,12 @@ public class TblObject {
         this.objectPlaceC = objectPlaceC;
     }
 
-    public TblMember getMember() {
-        return member;
+    public Member getMemberId() {
+        return memberId;
     }
 
-    public void setMember(TblMember member) {
-        this.member = member;
+    public void setMemberId(Member memberId) {
+        this.memberId = memberId;
     }
 
 }
