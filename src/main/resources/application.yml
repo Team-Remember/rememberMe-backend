@@ -12,7 +12,7 @@ spring:
   #JpaConfig
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
