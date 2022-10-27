@@ -1,15 +1,12 @@
 package com.yjh.rememberme.database.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.Date;
-@Data
-@AllArgsConstructor
+@Getter
 @NoArgsConstructor
 @Entity
 @Table(name = "\"TBL_MEMBER\"")
@@ -30,7 +27,7 @@ public class Member {
     private String Password;
 
     @NotNull
-    @Column(name = "\"MEMBER_REG_DATE\"", nullable = false)
+    @Column(name = "\"MEMBER_REG_DATE\"", nullable = false, columnDefinition = "DATE DEFAULT CURRENT_DATE")
     private Date RegDate;
 
     @Lob
@@ -40,7 +37,26 @@ public class Member {
     @NotNull
     @Lob
     @Column(name = "member_role", nullable = false)
-    private String Role;
+    @Enumerated(EnumType.STRING)
+    private Role Role;
 
+    @Builder
+    public Member(Integer id, String username, String password, Date regDate, String email, Role role) {
+        this.id = id;
+        Username = username;
+        Password = password;
+        RegDate = regDate;
+        Email = email;
+        Role = role;
+    }
+    public enum Role {
+        USER("user"), ADMIN("admin");
+
+        private String text;
+        Role(String text) {this.text = text;}
+
+        public String getText() { return text; }
+
+    }
 
 }
