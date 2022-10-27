@@ -9,48 +9,49 @@ import java.util.Date;
 @Getter
 @NoArgsConstructor
 @Entity
-@Table(name = "\"TBL_MEMBER\"")
+@Table(name = "TBL_MEMBER")
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "\"MEMBER_ID\"", nullable = false)
+    @Column(name = "MEMBER_ID", nullable = false)
     private Integer id;
 
     @NotNull
     @Lob
-    @Column(name = "\"MEMBER_USERNAME\"", nullable = false)
-    private String Username;
+    @Column(name = "MEMBER_USERNAME", nullable = false)
+    private String username;
 
     @NotNull
     @Lob
-    @Column(name = "\"MEMBER_PASSWORD\"", nullable = false)
-    private String Password;
+    @Column(name = "MEMBER_PASSWORD", nullable = false)
+    private String password;
 
     @NotNull
-    @Column(name = "\"MEMBER_REG_DATE\"", nullable = false, columnDefinition = "DATE DEFAULT CURRENT_DATE")
-    private Date RegDate;
+    @Column(name = "MEMBER_REG_DATE", nullable = false, columnDefinition = "DATE DEFAULT CURRENT_DATE")
+    private Date regDate;
 
     @Lob
-    @Column(name = "\"MEMBER_EMAIL\"")
-    private String Email;
+    @Column(name = "MEMBER_EMAIL")
+    private String email;
 
     @NotNull
     @Lob
     @Column(name = "member_role", nullable = false)
     @Enumerated(EnumType.STRING)
-    private Role Role;
+    private Role role;
 
     @Builder
     public Member(Integer id, String username, String password, Date regDate, String email, Role role) {
         this.id = id;
-        Username = username;
-        Password = password;
-        RegDate = regDate;
-        Email = email;
-        Role = role;
+        this.username = username;
+        this.password = password;
+        this.regDate = regDate;
+        this.email = email;
+        this.role = role;
     }
+
     public enum Role {
-        USER("user"), ADMIN("admin");
+        USER("USER"), ADMIN("ADMIN");
 
         private String text;
         Role(String text) {this.text = text;}
