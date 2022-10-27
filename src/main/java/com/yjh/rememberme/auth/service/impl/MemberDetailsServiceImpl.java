@@ -30,8 +30,8 @@ public class MemberDetailsServiceImpl implements MemberDetailsService {
         }
 
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(member.getRole()));
-        if((member.getRole()).equals("ADMIN")){
+        authorities.add(new SimpleGrantedAuthority(member.getRole().getText()));
+        if((member.getRole()).getText().equals("ADMIN")){
             authorities.add(new SimpleGrantedAuthority("USER"));
         }
 

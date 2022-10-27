@@ -14,21 +14,21 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "\"TBL_LOGIN_LOG\"")
+@Table(name = "TBL_LOGIN_LOG")
 public class LoginLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "\"LOGIN_LOG_ID\"", nullable = false)
+    @Column(name = "LOGIN_LOG_ID", nullable = false)
     private Integer id;
 
     @NotNull
-    @Column(name = "\"LOGIN_DATE\"", nullable = false)
+    @Column(name = "LOGIN_DATE", nullable = false)
     private Date loginDate;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "\"MEMBER_ID\"", nullable = false)
-    private Member memberId;
+    @JoinColumn(name = "MEMBER_ID", nullable = false)
+    private Member member;
 
 }

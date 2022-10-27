@@ -30,7 +30,7 @@ public class DupCheckController {
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         Map<String, Object> responseMap = new HashMap<>();
 
-        int result = memberRepository.existsByUsername(usernameDTO.getUsername());
+        int result = memberRepository.countByUsername(usernameDTO.getUsername());
         responseMap.put("username",usernameDTO.getUsername());
 
         if (result != 0) {
@@ -51,7 +51,7 @@ public class DupCheckController {
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         Map<String, Object> responseMap = new HashMap<>();
 
-        int result =memberRepository.existsByEmail(emailDTO.getEmail());
+        int result =memberRepository.countByEmail(emailDTO.getEmail());
         responseMap.put("email", emailDTO.getEmail());
 
         if (result != 0){
