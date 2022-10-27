@@ -7,27 +7,25 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "TBL_CHARACTER")
+@Table(name = "\"TBL_CHARACTER\"")
 public class Character {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CHARACTER_ID", nullable = false)
+    @Column(name = "\"CHARACTER_ID\"", nullable = false)
     private Integer id;
 
     @NotNull
-    @Lob
-    @Column(name = "CHARACTER_STATE_A", nullable = false)
+    @Column(name = "\"CHARACTER_STATE_A\"", nullable = false)
     private String characterStateA;
 
     @NotNull
-    @Lob
-    @Column(name = "CHARACTER_STATE_B", nullable = false)
+    @Column(name = "\"CHARACTER_STATE_B\"", nullable = false)
     private String characterStateB;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "MEMBER_ID", nullable = false)
+    @JoinColumn(name = "\"MEMBER_ID\"", nullable = false)
     private Member member;
 
     public Integer getId() {
@@ -54,12 +52,12 @@ public class Character {
         this.characterStateB = characterStateB;
     }
 
-    public Member getMemberId() {
+    public Member getMember() {
         return member;
     }
 
-    public void setMemberId(Member memberId) {
-        this.member = memberId;
+    public void setMemberId(Member member) {
+        this.member = member;
     }
 
 }

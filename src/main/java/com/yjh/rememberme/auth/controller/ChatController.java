@@ -6,6 +6,9 @@ import com.yjh.rememberme.database.entity.Chat;
 import com.yjh.rememberme.database.entity.Member;
 import com.yjh.rememberme.database.repository.ChatRepository;
 import com.yjh.rememberme.database.repository.MemberRepository;
+import net.minidev.json.JSONArray;
+import net.minidev.json.parser.JSONParser;
+import net.minidev.json.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -30,17 +33,20 @@ public class ChatController {
     }
 
     @PostMapping("/{username}")
-    public ResponseEntity<?> postChat(@PathVariable String username, @RequestBody ChatDTO chatData){
+    public ResponseEntity<?> postChat(@PathVariable String username, @RequestBody ChatDTO chatData) throws ParseException {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
         Map<String,Object> responseMap = new HashMap<>();
         Chat chat = null;
         Member member = memberRepository.findByUsername(username);
+//        JSONParser jsonParser = new JSONParser();
+//        JSONArray jsonArray = new JSONArray();
+//        jsonArray = (JSONArray) jsonParser.parse(chatData.getChatContents().toString());
         try{
             chat = chatRepository.save(new Chat(
                     0,
-                    chatData.getChatContent(),
+                    chatData.getChatContents(),
                     member
             ));
         } catch (Exception e) {

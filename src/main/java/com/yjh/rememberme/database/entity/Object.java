@@ -7,29 +7,29 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "TBL_OBJECT")
+@Table(name = "\"TBL_OBJECT\"")
 public class Object {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "OBJECT_ID", nullable = false)
+    @Column(name = "\"OBJECT_ID\"", nullable = false)
     private Integer id;
 
-    @Lob
-    @Column(name = "OBJECT_PLACE_A")
+
+    @Column(name = "\"OBJECT_PLACE_A\"")
     private String objectPlaceA;
 
-    @Lob
-    @Column(name = "OBJECT_PLACE_B")
+
+    @Column(name = "\"OBJECT_PLACE_B\"")
     private String objectPlaceB;
 
-    @Lob
-    @Column(name = "OBJECT_PLACE_C")
+
+    @Column(name = "\"OBJECT_PLACE_C\"")
     private String objectPlaceC;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "MEMBER_ID", nullable = false)
+    @JoinColumn(name = "\"MEMBER_ID\"", nullable = false)
     private Member member;
 
     public Integer getId() {
@@ -64,11 +64,11 @@ public class Object {
         this.objectPlaceC = objectPlaceC;
     }
 
-    public Member getMember() {
+    public Member getMemberId() {
         return member;
     }
 
-    public void setMember(Member member) {
+    public void setMemberId(Member member) {
         this.member = member;
     }
 

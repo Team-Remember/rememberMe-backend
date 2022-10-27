@@ -10,6 +10,5 @@ import javax.validation.constraints.Email;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EmailDTO {
-    @Email
     private String email;
 }

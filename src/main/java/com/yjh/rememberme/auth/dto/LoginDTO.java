@@ -10,7 +10,6 @@ import javax.validation.constraints.Email;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LoginDTO {
-    @Email
-    private String email;
+    private String username;
     private String password;
 }
