@@ -13,6 +13,6 @@ import java.util.Map;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ChatDTO {
-    private List<Map<String, java.lang.Object>> chatContents;
+    private List<Map<String, java.lang.Object>> data;
 }
 

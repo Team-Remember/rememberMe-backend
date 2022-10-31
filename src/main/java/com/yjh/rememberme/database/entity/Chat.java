@@ -6,11 +6,9 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.Type;
-import org.hibernate.mapping.Array;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -27,7 +25,7 @@ public class Chat {
     @NotNull
     @Type(type = "json")
     @Column(name = "\"CHAT_CONTENTS\"", nullable = false, columnDefinition = "json")
-    private List<Map<String, java.lang.Object>> chatContents;
+    private List<Map<String, java.lang.Object>> data;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -36,9 +34,9 @@ public class Chat {
     private Member member;
 
     @Builder
-    public Chat(Integer id, List<Map<String, java.lang.Object>> chatContents, Member member) {
+    public Chat(Integer id, List<Map<String, java.lang.Object>> data, Member member) {
         this.id = id;
-        this.chatContents = chatContents;
+        this.data = data;
         this.member = member;
     }
 }

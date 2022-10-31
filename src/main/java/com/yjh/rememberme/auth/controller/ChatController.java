@@ -46,7 +46,7 @@ public class ChatController {
         try{
             chat = chatRepository.save(new Chat(
                     0,
-                    chatData.getChatContents(),
+                    chatData.getData(),
                     member
             ));
         } catch (Exception e) {
