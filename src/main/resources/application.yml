@@ -9,7 +9,6 @@ spring:
       - classpath:config-yml/datasource-config.yml #DataSource
       - classpath:config-yml/aws-config.yml #S3Config
       - classpath:config-yml/jwt-config.yml #JwtConfig
-      - classpath:config-yml/mail-config.yml #mailConfig
   #JpaConfig
   jpa:
     hibernate:
@@ -25,6 +24,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
+    username: yeonjaehwe123@gmail.com
+    password: akgwsjbhioebrvgq
     properties:
       mail:
         smtp:

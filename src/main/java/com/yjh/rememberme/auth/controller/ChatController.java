@@ -66,4 +66,7 @@ public class ChatController {
                 .headers(headers)
                 .body(new ResponseMessage(201,"chat posted",responseMap));
     }
+
+    @PostMapping("/chat_bot")
+    public ResponseEntity
 }
