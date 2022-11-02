@@ -17,6 +17,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+/**
+ * Original Code
+ * https://github.com/DaeyeonKim97/leisurethat-backend/blob/main/src/main/java/com/steady/leisurethatapi/auth/util/JwtUtil.java
+ */
+
 @Service
 public class JwtUtil {
     @Value("remembermerememberyou")
