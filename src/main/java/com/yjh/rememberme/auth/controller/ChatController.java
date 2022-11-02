@@ -67,6 +67,9 @@ public class ChatController {
                 .body(new ResponseMessage(201,"chat posted",responseMap));
     }
 
+<<<<<<< HEAD
     @PostMapping("/chat_bot")
     public ResponseEntity
+=======
+>>>>>>> 43d20216058122cb2611ce885b8cf03cfe3ea795
 }

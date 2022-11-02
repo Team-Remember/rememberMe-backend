@@ -18,6 +18,11 @@ import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Original Code
+ * https://github.com/DaeyeonKim97/leisurethat-backend
+ */
+
 @RestController
 @RequestMapping("/login")
 public class LoginController {

@@ -20,6 +20,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Original Code
+ * https://github.com/DaeyeonKim97/leisurethat-backend
+ */
+
 @RestController
 @RequestMapping("/signup")
 public class SignUpController {
