@@ -16,6 +16,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Original Code
+ * https://github.com/DaeyeonKim97/leisurethat-backend/blob/main/src/main/java/com/steady/leisurethatapi/auth/filter/JwtFilter.java
+ */
+
 @Component
 public class JwtFilter extends OncePerRequestFilter {
     private final JwtUtil jwtUtil;
