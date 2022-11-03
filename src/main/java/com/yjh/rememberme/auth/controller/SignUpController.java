@@ -48,10 +48,12 @@ public class SignUpController {
         try {
             member = memberRepository.save(new Member(0,
                     signUp.getUsername(),
+                    signUp.getNickname(),
                     passwordEncoder.encode(signUp.getPassword()),
                     new java.sql.Date(new Date().getTime()),
                     signUp.getEmail(),
-                    Member.Role.USER
+                    Member.Role.USER,
+                    "Y"
                     ));
         } catch (Exception e){
             System.out.println(e);

@@ -1,4 +1,4 @@
-package com.yjh.rememberme.auth.dto;
+package com.yjh.rememberme.Chat.dto;
 
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import com.yjh.rememberme.database.entity.Object;
