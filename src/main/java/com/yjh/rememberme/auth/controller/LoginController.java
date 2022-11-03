@@ -1,5 +1,6 @@
 package com.yjh.rememberme.auth.controller;
 
+import com.yjh.rememberme.Member.service.MemberService;
 import com.yjh.rememberme.auth.dto.LoginDTO;
 import com.yjh.rememberme.auth.util.JwtUtil;
 import com.yjh.rememberme.common.dto.ResponseMessage;
@@ -28,11 +29,13 @@ import java.util.Map;
 public class LoginController {
     private final JwtUtil jwtUtil;
     private final AuthenticationManager authenticationManager;
+    private final MemberService memberService;
 
     @Autowired
-    public LoginController(JwtUtil jwtUtil, AuthenticationManager authenticationManager) {
+    public LoginController(JwtUtil jwtUtil, AuthenticationManager authenticationManager, MemberService memberService) {
         this.jwtUtil = jwtUtil;
         this.authenticationManager = authenticationManager;
+        this.memberService = memberService;
     }
 
     @PostMapping
@@ -61,7 +64,7 @@ public class LoginController {
                     .body(new ResponseMessage(400, "login failed", responseMap));
         }
         token = jwtUtil.generateToken(loginInfo.getUsername());
-        responseMap.put("id",loginInfo.getUsername());
+        responseMap.put("nickname", memberService.findNicknameByUsername(loginInfo.getUsername()));
         responseMap.put("token",token);
         return ResponseEntity
                 .ok()

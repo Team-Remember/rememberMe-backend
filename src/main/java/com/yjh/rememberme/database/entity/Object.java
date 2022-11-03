@@ -36,44 +36,5 @@ public class Object {
     @JoinColumn(name = "\"MEMBER_ID\"", nullable = false)
     private Member member;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getObjectPlaceA() {
-        return objectPlaceA;
-    }
-
-    public void setObjectPlaceA(String objectPlaceA) {
-        this.objectPlaceA = objectPlaceA;
-    }
-
-    public String getObjectPlaceB() {
-        return objectPlaceB;
-    }
-
-    public void setObjectPlaceB(String objectPlaceB) {
-        this.objectPlaceB = objectPlaceB;
-    }
-
-    public String getObjectPlaceC() {
-        return objectPlaceC;
-    }
-
-    public void setObjectPlaceC(String objectPlaceC) {
-        this.objectPlaceC = objectPlaceC;
-    }
-
-    public Member getMemberId() {
-        return member;
-    }
-
-    public void setMemberId(Member member) {
-        this.member = member;
-    }
 
 }
