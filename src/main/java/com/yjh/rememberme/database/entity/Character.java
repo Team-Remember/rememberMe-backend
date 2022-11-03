@@ -1,5 +1,6 @@
 package com.yjh.rememberme.database.entity;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
@@ -18,12 +19,28 @@ public class Character {
     private Integer id;
 
     @NotNull
-    @Column(name = "\"CHARACTER_STATE_A\"", nullable = false)
-    private String characterStateA;
+    @Column(name = "\"CHARACTER_HAIR_NUM\"", nullable = false)
+    private String hairNum;
 
     @NotNull
-    @Column(name = "\"CHARACTER_STATE_B\"", nullable = false)
-    private String characterStateB;
+    @Column(name = "\"CHARACTER_JACKET_NUM\"", nullable = false)
+    private String jacketNum;
+
+    @NotNull
+    @Column(name = "\"CHARACTER_CHEST_NUM\"", nullable = false)
+    private String chestNum;
+
+    @NotNull
+    @Column(name = "\"CHARACTER_TIE_NUM\"", nullable = false)
+    private String tieNum;
+
+    @NotNull
+    @Column(name = "\"CHARACTER_LEGS_NUM\"", nullable = false)
+    private String legsNum;
+
+    @NotNull
+    @Column(name = "\"CHARACTER_FEET_NUM\"", nullable = false)
+    private String feetNum;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -31,5 +48,15 @@ public class Character {
     @JoinColumn(name = "\"MEMBER_ID\"", nullable = false)
     private Member member;
 
-
+    @Builder
+    public Character(Integer id, String hairNum, String jacketNum, String chestNum, String tieNum, String legsNum, String feetNum, Member member) {
+        this.id = id;
+        this.hairNum = hairNum;
+        this.jacketNum = jacketNum;
+        this.chestNum = chestNum;
+        this.tieNum = tieNum;
+        this.legsNum = legsNum;
+        this.feetNum = feetNum;
+        this.member = member;
+    }
 }
