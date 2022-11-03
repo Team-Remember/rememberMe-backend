@@ -20,11 +20,11 @@ public class Member {
     private Integer id;
 
     @NotNull
-    @Column(name = "\"MEMBER_USERNAME\"", nullable = false)
+    @Column(name = "\"MEMBER_USERNAME\"", nullable = false, unique = true)
     private String username;
 
     @NotNull
-    @Column(name = "\"MEMBER_NICKNAME\"", nullable = false)
+    @Column(name = "\"MEMBER_NICKNAME\"", nullable = false, unique = true)
     private String nickname;
 
     @NotNull
@@ -36,7 +36,7 @@ public class Member {
     private Date regDate;
 
     @NotNull
-    @Column(name = "\"MEMBER_EMAIL\"")
+    @Column(name = "\"MEMBER_EMAIL\"", unique = true)
     private String email;
 
     @NotNull
@@ -44,6 +44,7 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @NotNull
     @Column(name = "\"MEMBER_STATUS\"")
     private String status;
 
