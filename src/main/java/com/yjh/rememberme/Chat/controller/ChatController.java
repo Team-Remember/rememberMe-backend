@@ -12,6 +12,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.nio.charset.Charset;
@@ -67,7 +68,15 @@ public class ChatController {
 
     @PostMapping("/chat_bot")
     public ResponseEntity<?> postChatBot(@PathVariable String username, @RequestBody ChatDTO chatData) throws ParseException{
-        
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+
+        Map<String, Object> responseMap = new HashMap<>();
+        Chat chat = null;
+        Member member = memberRepository.findByUsername(username);
+
+        RestTemplate restTemplate = new RestTemplate();
 
     }
 
