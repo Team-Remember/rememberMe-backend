@@ -1,11 +1,14 @@
 package com.yjh.rememberme.database.entity;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-
+@Data
+@NoArgsConstructor
 @Entity
 @Table(name = "\"TBL_CHARACTER\"")
 public class Character {
@@ -28,36 +31,5 @@ public class Character {
     @JoinColumn(name = "\"MEMBER_ID\"", nullable = false)
     private Member member;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getCharacterStateA() {
-        return characterStateA;
-    }
-
-    public void setCharacterStateA(String characterStateA) {
-        this.characterStateA = characterStateA;
-    }
-
-    public String getCharacterStateB() {
-        return characterStateB;
-    }
-
-    public void setCharacterStateB(String characterStateB) {
-        this.characterStateB = characterStateB;
-    }
-
-    public Member getMember() {
-        return member;
-    }
-
-    public void setMemberId(Member member) {
-        this.member = member;
-    }
 
 }

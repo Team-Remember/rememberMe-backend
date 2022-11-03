@@ -1,13 +1,11 @@
-package com.yjh.rememberme.auth.controller;
+package com.yjh.rememberme.Chat.controller;
 
-import com.yjh.rememberme.auth.dto.ChatDTO;
+import com.yjh.rememberme.Chat.dto.ChatDTO;
 import com.yjh.rememberme.common.dto.ResponseMessage;
 import com.yjh.rememberme.database.entity.Chat;
 import com.yjh.rememberme.database.entity.Member;
 import com.yjh.rememberme.database.repository.ChatRepository;
 import com.yjh.rememberme.database.repository.MemberRepository;
-import net.minidev.json.JSONArray;
-import net.minidev.json.parser.JSONParser;
 import net.minidev.json.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;

@@ -1,11 +1,15 @@
 package com.yjh.rememberme.database.entity;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+@Data
+@NoArgsConstructor
 @Entity
 @Table(name = "\"TBL_OBJECT\"")
 public class Object {
