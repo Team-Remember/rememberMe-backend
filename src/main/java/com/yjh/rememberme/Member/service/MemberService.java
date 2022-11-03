@@ -21,9 +21,11 @@ public class MemberService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public Object findById(int id) {
-        Member member = memberRepository.findById(id);
-        return member;
+    public String findNicknameByUsername(String username) {
+        String nickname = null;
+        nickname = memberRepository.findByUsername(username).getNickname();
+
+        return nickname;
     }
 
     @Transactional
@@ -82,7 +84,6 @@ public class MemberService {
     }
 
     @Transactional
-
     public void putPassword(String username, String oldPassword, String newPassword) {
         Member foundMember = memberRepository.findByUsername(username);
         System.out.println(foundMember);

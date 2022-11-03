@@ -1,6 +1,7 @@
 package com.yjh.rememberme.auth.controller;
 
 import com.yjh.rememberme.auth.dto.EmailDTO;
+import com.yjh.rememberme.auth.dto.NicknameDTO;
 import com.yjh.rememberme.auth.dto.UsernameDTO;
 import com.yjh.rememberme.common.dto.ResponseMessage;
 import com.yjh.rememberme.database.repository.MemberRepository;
@@ -28,6 +29,7 @@ public class DupCheckController {
     public DupCheckController(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
+
     @PostMapping("username")
     public ResponseEntity<?> getUserNameIsDuplicated(@RequestBody UsernameDTO usernameDTO) {
         System.out.println(usernameDTO.getUsername());
@@ -49,7 +51,7 @@ public class DupCheckController {
         }
     }
 
-    @GetMapping("email")
+    @PostMapping("email")
     public ResponseEntity<?> getEmailIsDuplicated(@RequestBody EmailDTO emailDTO){
         System.out.println(emailDTO.getEmail());
         HttpHeaders headers = new HttpHeaders();
@@ -67,6 +69,27 @@ public class DupCheckController {
             return ResponseEntity
                     .ok()
                     .body(new ResponseMessage(200, "email is available", responseMap));
+        }
+    }
+
+    @PostMapping("nickname")
+    public ResponseEntity<?> getEmailIsDuplicated(@RequestBody NicknameDTO nicknameDTO){
+        System.out.println(nicknameDTO.getNickname());
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+        Map<String, Object> responseMap = new HashMap<>();
+
+        int result =memberRepository.countByNickname(nicknameDTO.getNickname());
+        responseMap.put("nickname", nicknameDTO.getNickname());
+
+        if (result != 0){
+            return ResponseEntity
+                    .badRequest()
+                    .body(new ResponseMessage(400, "nickname is duplicated", responseMap));
+        } else {
+            return ResponseEntity
+                    .ok()
+                    .body(new ResponseMessage(200, "nickname is available", responseMap));
         }
     }
 }
