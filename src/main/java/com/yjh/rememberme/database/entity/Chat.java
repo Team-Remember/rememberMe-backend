@@ -1,6 +1,7 @@
 package com.yjh.rememberme.database.entity;
 
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
@@ -12,7 +13,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Map;
 
-@Getter
+@Data
 @NoArgsConstructor
 @Entity
 @Table(name = "\"TBL_CHAT\"")

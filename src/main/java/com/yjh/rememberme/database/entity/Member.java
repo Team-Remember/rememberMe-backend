@@ -8,7 +8,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.Date;
-@Getter
+
+@Data
 @NoArgsConstructor
 @Entity
 @Table(name = "\"TBL_MEMBER\"")
@@ -21,6 +22,10 @@ public class Member {
     @NotNull
     @Column(name = "\"MEMBER_USERNAME\"", nullable = false)
     private String username;
+
+    @NotNull
+    @Column(name = "\"MEMBER_NICKNAME\"", nullable = false)
+    private String nickname;
 
     @NotNull
     @Column(name = "\"MEMBER_PASSWORD\"", nullable = false)
@@ -39,14 +44,19 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @Column(name = "\"MEMBER_STATUS\"")
+    private String status;
+
     @Builder
-    public Member(Integer id, String username, String password, Date regDate, String email, Role role) {
+    public Member(Integer id, String username, String nickname, String password, Date regDate, String email, Role role, String status) {
         this.id = id;
         this.username = username;
+        this.nickname = nickname;
         this.password = password;
         this.regDate = regDate;
         this.email = email;
         this.role = role;
+        this.status = status;
     }
 
     public enum Role {
