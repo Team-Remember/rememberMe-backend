@@ -22,15 +22,3 @@ spring:
   servlet:
     multipart:
       location: classpath:tempfile
-  mail:
-    host: smtp.gmail.com
-    port: 587
-    username: yeonjaehwe123@gmail.com
-    password: akgwsjbhioebrvgq
-    properties:
-      mail:
-        smtp:
-          auth: true
-          timeout: 5000
-          starttls:
-            enable: true
