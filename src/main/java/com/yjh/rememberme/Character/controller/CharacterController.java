@@ -39,15 +39,18 @@ public class CharacterController {
         Character character = null;
         character = characterService.postCharacter(username, characterData);
 
+        if (character==null) {
+            responseMap.put("username", username);
+            responseMap.put("nickname", characterData.getNickname());
+
+            return ResponseEntity
+                    .badRequest()
+                    .headers(headers)
+                    .body(new ResponseMessage(400, "putCharacter failed", responseMap));
+        }
+
         responseMap.put("characterId",character.getId());
         responseMap.put("memberNickname",character.getMember().getNickname());
-
-//        if (character==null) {
-//            return ResponseEntity
-//                    .badRequest()
-//                    .headers(headers)
-//                    .body(new ResponseMessage(400, "postCharacter failed", responseMap));
-//        }
 
         return ResponseEntity
                 .created(URI.create("/"+username))
@@ -65,15 +68,18 @@ public class CharacterController {
         Character character = null;
         character= characterService.putCharacter(username, characterData);
 
+        if (character==null) {
+            responseMap.put("username", username);
+            responseMap.put("nickname", characterData.getNickname());
+
+            return ResponseEntity
+                    .badRequest()
+                    .headers(headers)
+                    .body(new ResponseMessage(400, "putCharacter failed", responseMap));
+        }
+
         responseMap.put("characterId",character.getId());
         responseMap.put("memberNickname",character.getMember().getNickname());
-
-//        if (character==null) {
-//            return ResponseEntity
-//                    .badRequest()
-//                    .headers(headers)
-//                    .body(new ResponseMessage(400, "putCharacter failed", responseMap));
-//        }
 
         return ResponseEntity
                 .created(URI.create("/"+username))
@@ -82,7 +88,7 @@ public class CharacterController {
     }
 
     @GetMapping("find/{username}")
-    public ResponseEntity<?> postChat(@PathVariable String username) {
+    public ResponseEntity<?> getChat(@PathVariable String username) {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
@@ -90,6 +96,15 @@ public class CharacterController {
         Character character = null;
         character = characterService.getCharacter(username);
         String nickname = memberService.findNicknameByUsername(username);
+
+        if (character==null) {
+            responseMap.put("username", username);
+
+            return ResponseEntity
+                    .badRequest()
+                    .headers(headers)
+                    .body(new ResponseMessage(400, "putCharacter failed", responseMap));
+        }
 
         responseMap.put("nickname", nickname);
         responseMap.put("hairNum", character.getHairNum());
@@ -99,12 +114,8 @@ public class CharacterController {
         responseMap.put("legsNum", character.getLegsNum());
         responseMap.put("feetNum", character.getFeetNum());
 
-//        if (character==null) {
-//            return ResponseEntity
-//                    .badRequest()
-//                    .headers(headers)
-//                    .body(new ResponseMessage(400, "getCharacter failed", responseMap));
-//        }
+        responseMap.put("characterId",character.getId());
+        responseMap.put("memberNickname",character.getMember().getNickname());
 
         return ResponseEntity
                 .created(URI.create("/"+username))
