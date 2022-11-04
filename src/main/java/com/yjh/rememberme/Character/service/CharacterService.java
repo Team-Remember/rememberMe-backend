@@ -40,6 +40,22 @@ public class CharacterService {
     }
 
     @Transactional
+    public Character putCharacter(String username, CharacterDTO characterData) {
+
+        Character character = null;
+        Member member = memberRepository.findByUsername(username);
+        character = characterRepository.findByMember(member);
+        character.setChestNum(characterData.getChestNum());
+        character.setFeetNum(characterData.getFeetNum());
+        character.setLegsNum(characterData.getLegsNum());
+        character.setHairNum(characterData.getHairNum());
+        character.setJacketNum(characterData.getJacketNum());
+        character.setTieNum(characterData.getTieNum());
+
+        return character;
+    }
+
+    @Transactional
     public Character getCharacter(String username) {
         Character character = null;
         Member member = memberRepository.findByUsername(username);

@@ -42,17 +42,43 @@ public class CharacterController {
         responseMap.put("characterId",character.getId());
         responseMap.put("memberNickname",character.getMember().getNickname());
 
-        if (character==null) {
-            return ResponseEntity
-                    .badRequest()
-                    .headers(headers)
-                    .body(new ResponseMessage(400, "postCharacter failed", responseMap));
-        }
+//        if (character==null) {
+//            return ResponseEntity
+//                    .badRequest()
+//                    .headers(headers)
+//                    .body(new ResponseMessage(400, "postCharacter failed", responseMap));
+//        }
 
         return ResponseEntity
                 .created(URI.create("/"+username))
                 .headers(headers)
                 .body(new ResponseMessage(201,"character posted",responseMap));
+    }
+
+    @PutMapping("/{username}")
+    public ResponseEntity<?> putCharacter(@PathVariable String username, @RequestBody CharacterDTO characterData) {
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+        Map<String, Object> responseMap = new HashMap<>();
+
+        Character character = null;
+        character= characterService.putCharacter(username, characterData);
+
+        responseMap.put("characterId",character.getId());
+        responseMap.put("memberNickname",character.getMember().getNickname());
+
+//        if (character==null) {
+//            return ResponseEntity
+//                    .badRequest()
+//                    .headers(headers)
+//                    .body(new ResponseMessage(400, "putCharacter failed", responseMap));
+//        }
+
+        return ResponseEntity
+                .created(URI.create("/"+username))
+                .headers(headers)
+                .body(new ResponseMessage(201,"putCharacter succeed",responseMap));
     }
 
     @GetMapping("find/{username}")
@@ -73,12 +99,12 @@ public class CharacterController {
         responseMap.put("legsNum", character.getLegsNum());
         responseMap.put("feetNum", character.getFeetNum());
 
-        if (character==null) {
-            return ResponseEntity
-                    .badRequest()
-                    .headers(headers)
-                    .body(new ResponseMessage(400, "getCharacter failed", responseMap));
-        }
+//        if (character==null) {
+//            return ResponseEntity
+//                    .badRequest()
+//                    .headers(headers)
+//                    .body(new ResponseMessage(400, "getCharacter failed", responseMap));
+//        }
 
         return ResponseEntity
                 .created(URI.create("/"+username))
