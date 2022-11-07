@@ -27,11 +27,11 @@ public class ChatService {
     public Chat postChat(String username, ChatDTO chatData) {
 
         Chat chat = null;
-        int member = memberRepository.findIdByUsername(username);
+        Member member = memberRepository.findByUsername(username);
         chat = chatRepository.save(new Chat(
                 0,
                 chatData.getData(),
-                member,
+                member.getId(),
                 chatData.getOpponentId()
         ));
         return chat;
