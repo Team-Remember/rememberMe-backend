@@ -65,6 +65,7 @@ public class LoginController {
         }
         token = jwtUtil.generateToken(loginInfo.getUsername());
         responseMap.put("nickname", memberService.findNicknameByUsername(loginInfo.getUsername()));
+        responseMap.put("username",loginInfo.getUsername());
         responseMap.put("token",token);
         return ResponseEntity
                 .ok()

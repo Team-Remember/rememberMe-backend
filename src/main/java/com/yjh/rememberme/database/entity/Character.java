@@ -43,7 +43,7 @@ public class Character {
     private String feetNum;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "\"MEMBER_ID\"", nullable = false)
     private Member member;
