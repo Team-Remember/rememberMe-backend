@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class ChatService {
@@ -34,4 +35,13 @@ public class ChatService {
         ));
         return chat;
     }
+
+//    @Transactional
+//    public List<Chat> getChat(String username) {
+//        Member member = memberRepository.findByUsername(username);
+//        List<Chat> chat = chatRepository.findAllByMember(member);
+//
+//        System.out.println("chat"+chat);
+//        return chat;
+//    }
 }
