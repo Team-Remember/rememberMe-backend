@@ -2,6 +2,7 @@ package com.yjh.rememberme.chat.controller;
 
 import com.nimbusds.jose.shaded.json.JSONArray;
 import com.nimbusds.jose.shaded.json.JSONObject;
+import com.yjh.rememberme.chat.dto.ChatBotDTO;
 import com.yjh.rememberme.chat.dto.ChatDTO;
 import com.yjh.rememberme.chat.service.ChatService;
 import com.yjh.rememberme.common.dto.ResponseMessage;
@@ -96,25 +97,29 @@ public class ChatController {
     }
 
     @PostMapping("/{username}/chat_bot")
-    public ResponseEntity<?> postChatBot(@PathVariable String username, @RequestBody String data) throws Exception{
-
-        System.out.println(data);
-
+    public ResponseEntity<?> postChatBot(@PathVariable String username, @RequestBody ChatBotDTO chatBotData) throws Exception{
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         Map<String, Object> responseMap = new HashMap<>();
+
+
+        System.out.println(chatBotData);
 
 //        Chat chat = null;
 //        chat = chatService.postChatBot(username, chatBotData);
 
         RestTemplate restTemplate = new RestTemplate();
 
-        HttpEntity<?> entity = new HttpEntity<>(data, headers);
+        HttpEntity<?> entity = new HttpEntity<>(headers);
         String url = "https://7b62-119-194-163-123.jp.ngrok.io/chat_bot";
 
-        UriComponents uri = UriComponentsBuilder.fromHttpUrl(url).build();
+        UriComponents uri = UriComponentsBuilder.fromHttpUrl(url)
+                .queryParam("chatRequest", chatBotData.getChatRequest())
+                .queryParam("userId", chatBotData.getUserId())
+                .queryParam("weId", chatBotData.getWeId())
+                .build();
 
-        ResponseEntity<Map> resultMap = restTemplate.exchange(uri.toString(), HttpMethod.GET, entity, Map.class);
+        ResponseEntity<?> resultMap = restTemplate.exchange(uri.toString(), HttpMethod.GET, entity, Map.class);
         responseMap.put("statusCode", resultMap.getStatusCodeValue()); //http status code를 확인
         responseMap.put("header", resultMap.getHeaders()); //헤더 정보 확인
         responseMap.put("body", resultMap.getBody()); //실제 데이터 정보 확인
