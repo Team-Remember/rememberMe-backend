@@ -1,7 +1,9 @@
-package com.yjh.rememberme.Chat.controller;
+package com.yjh.rememberme.chat.controller;
 
-import com.yjh.rememberme.Chat.dto.ChatDTO;
-import com.yjh.rememberme.Chat.service.ChatService;
+import com.nimbusds.jose.shaded.json.JSONArray;
+import com.nimbusds.jose.shaded.json.JSONObject;
+import com.yjh.rememberme.chat.dto.ChatDTO;
+import com.yjh.rememberme.chat.service.ChatService;
 import com.yjh.rememberme.common.dto.ResponseMessage;
 import com.yjh.rememberme.database.entity.Chat;
 import com.yjh.rememberme.database.entity.LoginLog;
@@ -45,6 +47,7 @@ public class ChatController {
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
         Map<String,Object> responseMap = new HashMap<>();
 
+
         Chat chat = null;
         chat = chatService.postChat(username, chatData);
 
@@ -71,12 +74,19 @@ public class ChatController {
         Map<String, Object> responseMap = new HashMap<>();
         Member member = memberRepository.findByUsername(username);
 
-        List<Object> chat = chatRepository.findChatContentsAllByMember(member);
+
+//        Chat chat = chatRepository.findAllByMember(member);
+
+//        JSONObject obj = new JSONObject();
+//        obj.put("chat", chat);
+//        JSONArray a = new JSONArray();
+//        a.add(0, obj);
+//
 //        System.out.println(chat);
 
-//        List<LoginLog> log = loginLogRepository.findAllByMemberId(member.getId());
+        List<LoginLog> log = loginLogRepository.findAllByMemberId(member.getId());
 
-        responseMap.put("chatData",chat);
+        responseMap.put("chatData",log);
 
         return ResponseEntity
                 .created(URI.create("/"+username))
