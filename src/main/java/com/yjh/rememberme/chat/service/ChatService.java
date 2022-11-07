@@ -1,6 +1,6 @@
-package com.yjh.rememberme.Chat.service;
+package com.yjh.rememberme.chat.service;
 
-import com.yjh.rememberme.Chat.dto.ChatDTO;
+import com.yjh.rememberme.chat.dto.ChatDTO;
 import com.yjh.rememberme.database.entity.Chat;
 import com.yjh.rememberme.database.entity.Member;
 import com.yjh.rememberme.database.repository.ChatRepository;

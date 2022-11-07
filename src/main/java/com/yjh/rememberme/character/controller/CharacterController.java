@@ -1,7 +1,7 @@
-package com.yjh.rememberme.Character.controller;
+package com.yjh.rememberme.character.controller;
 
-import com.yjh.rememberme.Character.dto.CharacterDTO;
-import com.yjh.rememberme.Character.service.CharacterService;
+import com.yjh.rememberme.character.dto.CharacterDTO;
+import com.yjh.rememberme.character.service.CharacterService;
 import com.yjh.rememberme.Member.service.MemberService;
 import com.yjh.rememberme.common.dto.ResponseMessage;
 import com.yjh.rememberme.database.entity.Character;

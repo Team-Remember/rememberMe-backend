@@ -1,4 +1,4 @@
-package com.yjh.rememberme.Character.dto;
+package com.yjh.rememberme.character.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
