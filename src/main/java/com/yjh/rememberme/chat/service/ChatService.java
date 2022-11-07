@@ -1,6 +1,6 @@
-package com.yjh.rememberme.Chat.service;
+package com.yjh.rememberme.chat.service;
 
-import com.yjh.rememberme.Chat.dto.ChatDTO;
+import com.yjh.rememberme.chat.dto.ChatDTO;
 import com.yjh.rememberme.database.entity.Chat;
 import com.yjh.rememberme.database.entity.Member;
 import com.yjh.rememberme.database.repository.ChatRepository;
@@ -34,4 +34,13 @@ public class ChatService {
         ));
         return chat;
     }
+
+//    @Transactional
+//    public List<Chat> getChat(String username) {
+//        Member member = memberRepository.findByUsername(username);
+//        List<Chat> chat = chatRepository.findAllByMember(member);
+//
+//        System.out.println("chat"+chat);
+//        return chat;
+//    }
 }

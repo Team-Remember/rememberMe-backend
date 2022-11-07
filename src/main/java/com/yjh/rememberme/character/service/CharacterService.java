@@ -1,6 +1,6 @@
-package com.yjh.rememberme.Character.service;
+package com.yjh.rememberme.character.service;
 
-import com.yjh.rememberme.Character.dto.CharacterDTO;
+import com.yjh.rememberme.character.dto.CharacterDTO;
 import com.yjh.rememberme.database.entity.Character;
 import com.yjh.rememberme.database.entity.Member;
 import com.yjh.rememberme.database.repository.CharacterRepository;
@@ -36,6 +36,22 @@ public class CharacterService {
                 characterData.getFeetNum(),
                 member
         ));
+        return character;
+    }
+
+    @Transactional
+    public Character putCharacter(String username, CharacterDTO characterData) {
+
+        Character character = null;
+        Member member = memberRepository.findByUsername(username);
+        character = characterRepository.findByMember(member);
+        character.setChestNum(characterData.getChestNum());
+        character.setFeetNum(characterData.getFeetNum());
+        character.setLegsNum(characterData.getLegsNum());
+        character.setHairNum(characterData.getHairNum());
+        character.setJacketNum(characterData.getJacketNum());
+        character.setTieNum(characterData.getTieNum());
+
         return character;
     }
 
