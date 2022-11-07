@@ -56,8 +56,10 @@ public class ChatController {
                 .body(new ResponseMessage(201,"chat posted",responseMap));
     }
 
-    @PostMapping("/chat_bot")
-    public ResponseEntity<?> postChatBot(@PathVariable String username, @RequestBody ChatBotDTO chatBotData) throws Exception{
+    @PostMapping("/{username}/chat_bot")
+    public ResponseEntity<?> postChatBot(@PathVariable String username, @RequestBody String data) throws Exception{
+
+        System.out.println(data);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
@@ -67,12 +69,11 @@ public class ChatController {
 
         RestTemplate restTemplate = new RestTemplate();
 
-        HttpEntity<?> entity = new HttpEntity<>(chatBotData, headers);
+        HttpEntity<?> entity = new HttpEntity<>(data, headers);
         String url = "https://7b62-119-194-163-123.jp.ngrok.io/chat_bot";
 
         UriComponents uri = UriComponentsBuilder.fromHttpUrl(url).build();
 
-        //이 한줄의 코드로 API를 호출해 MAP타입으로 전달 받는다.
         ResponseEntity<Map> resultMap = restTemplate.exchange(uri.toString(), HttpMethod.GET, entity, Map.class);
         responseMap.put("statusCode", resultMap.getStatusCodeValue()); //http status code를 확인
         responseMap.put("header", resultMap.getHeaders()); //헤더 정보 확인
@@ -113,15 +114,3 @@ public class ChatController {
 //    }
 
 }
-
-//
-//    HttpRequest request = HttpRequest.newBuilder()
-//            .uri(URI.create("https://api.tosspayments.com/v1/billing/authorizations/RlLBaiepwlr1OY6i0_h4u")) // 요청 url
-//            .header("Authorization", "Basic dGVzdF9za19ENHlLZXE1YmdycG1vT2FSTHlYOEdYMGx6VzZZOg==") // 인증 정보
-//            .header("Content-Type", "application/json") // 데이터 타입
-//            .method("POST", HttpRequest.BodyPublishers.ofString("{\"customerKey\":\"0KhY3n57X8ZN789_4mUg-\"}")) // 요청 주소 및 값 json 형태
-//            .build();
-//
-//    // 요청을 보내고 받아옴
-//    HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-//        System.out.println(response.body());
