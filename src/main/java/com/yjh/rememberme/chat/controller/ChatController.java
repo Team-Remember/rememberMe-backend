@@ -1,5 +1,8 @@
 package com.yjh.rememberme.chat.controller;
 
+import com.nimbusds.jose.shaded.json.JSONArray;
+import com.nimbusds.jose.shaded.json.JSONObject;
+import com.yjh.rememberme.chat.dto.ChatBotDTO;
 import com.yjh.rememberme.chat.dto.ChatDTO;
 import com.yjh.rememberme.chat.service.ChatService;
 import com.yjh.rememberme.common.dto.ResponseMessage;
@@ -18,7 +21,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.nio.charset.Charset;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,10 +29,16 @@ import java.util.Map;
 @RequestMapping("/chat")
 public class ChatController {
     private final ChatService chatService;
+    private final LoginLogRepository loginLogRepository;
+    private final MemberRepository memberRepository;
+    private final ChatRepository chatRepository;
 
     @Autowired
-    public ChatController(ChatService chatService) {
+    public ChatController(ChatService chatService, MemberRepository memberRepository, LoginLogRepository loginLogRepository, ChatRepository chatRepository) {
         this.chatService = chatService;
+        this.loginLogRepository = loginLogRepository;
+        this.memberRepository = memberRepository;
+        this.chatRepository = chatRepository;
     }
 
 
@@ -46,7 +54,7 @@ public class ChatController {
         chat = chatService.postChat(username, chatData);
 
         responseMap.put("chatId",chat.getId());
-        responseMap.put("username",username);
+        responseMap.put("memberId",chat.getMember().getUsername());
 
         if (chat==null) {
             return ResponseEntity
@@ -66,8 +74,10 @@ public class ChatController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         Map<String, Object> responseMap = new HashMap<>();
+        Member member = memberRepository.findByUsername(username);
 
-        List<Chat> chat = chatService.getChat(username);
+
+//        Chat chat = chatRepository.findAllByMember(member);
 
 //        JSONObject obj = new JSONObject();
 //        obj.put("chat", chat);
@@ -76,14 +86,9 @@ public class ChatController {
 //
 //        System.out.println(chat);
 
-//        List<LoginLog> log = loginLogRepository.findAllByMemberId(member.getId());
+        List<LoginLog> log = loginLogRepository.findAllByMemberId(member.getId());
 
-//        for (int i = 0; i < chat.size(); i++) {
-//            List<Chat> chatlist=null;
-//            chatlist.put(chat.get(i).getData());
-//        }
-//
-        responseMap.put("chatData", chat);
+        responseMap.put("chatData",log);
 
         return ResponseEntity
                 .created(URI.create("/"+username))
@@ -92,25 +97,29 @@ public class ChatController {
     }
 
     @PostMapping("/{username}/chat_bot")
-    public ResponseEntity<?> postChatBot(@PathVariable String username, @RequestBody String data) throws Exception{
-
-        System.out.println(data);
-
+    public ResponseEntity<?> postChatBot(@PathVariable String username, @RequestBody ChatBotDTO chatBotData) throws Exception{
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         Map<String, Object> responseMap = new HashMap<>();
+
+
+        System.out.println(chatBotData);
 
 //        Chat chat = null;
 //        chat = chatService.postChatBot(username, chatBotData);
 
         RestTemplate restTemplate = new RestTemplate();
 
-        HttpEntity<?> entity = new HttpEntity<>(data, headers);
+        HttpEntity<?> entity = new HttpEntity<>(headers);
         String url = "https://7b62-119-194-163-123.jp.ngrok.io/chat_bot";
 
-        UriComponents uri = UriComponentsBuilder.fromHttpUrl(url).build();
+        UriComponents uri = UriComponentsBuilder.fromHttpUrl(url)
+                .queryParam("chatRequest", chatBotData.getChatRequest())
+                .queryParam("userId", chatBotData.getUserId())
+                .queryParam("weId", chatBotData.getWeId())
+                .build();
 
-        ResponseEntity<Map> resultMap = restTemplate.exchange(uri.toString(), HttpMethod.GET, entity, Map.class);
+        ResponseEntity<?> resultMap = restTemplate.exchange(uri.toString(), HttpMethod.GET, entity, Map.class);
         responseMap.put("statusCode", resultMap.getStatusCodeValue()); //http status code를 확인
         responseMap.put("header", resultMap.getHeaders()); //헤더 정보 확인
         responseMap.put("body", resultMap.getBody()); //실제 데이터 정보 확인
