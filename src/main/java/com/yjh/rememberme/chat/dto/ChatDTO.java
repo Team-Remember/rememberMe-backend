@@ -1,7 +1,5 @@
-package com.yjh.rememberme.Chat.dto;
+package com.yjh.rememberme.chat.dto;
 
-import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
-import com.yjh.rememberme.database.entity.Object;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

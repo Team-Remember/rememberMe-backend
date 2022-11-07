@@ -1,11 +1,18 @@
-package com.yjh.rememberme.Chat.controller;
+package com.yjh.rememberme.chat.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.yjh.rememberme.Chat.dto.ChatBotDTO;
-import com.yjh.rememberme.Chat.dto.ChatDTO;
-import com.yjh.rememberme.Chat.service.ChatService;
+import com.yjh.rememberme.chat.dto.ChatBotDTO;
+import com.yjh.rememberme.chat.dto.ChatDTO;
+import com.yjh.rememberme.chat.service.ChatService;
+
+import com.yjh.rememberme.chat.dto.ChatDTO;
+
 import com.yjh.rememberme.common.dto.ResponseMessage;
 import com.yjh.rememberme.database.entity.Chat;
+import com.yjh.rememberme.database.entity.Member;
+import com.yjh.rememberme.database.repository.ChatRepository;
+import com.yjh.rememberme.database.repository.LoginLogRepository;
+import com.yjh.rememberme.database.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -16,16 +23,23 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 import java.nio.charset.Charset;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/chat")
 public class ChatController {
     private final ChatService chatService;
+    private final LoginLogRepository loginLogRepository;
+    private final MemberRepository memberRepository;
+    private final ChatRepository chatRepository;
 
     @Autowired
-    public ChatController(ChatService chatService) {
+    public ChatController(ChatService chatService, MemberRepository memberRepository, LoginLogRepository loginLogRepository, ChatRepository chatRepository) {
         this.chatService = chatService;
+        this.loginLogRepository = loginLogRepository;
+        this.memberRepository = memberRepository;
+        this.chatRepository = chatRepository;
     }
 
 
@@ -35,13 +49,12 @@ public class ChatController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
         Map<String,Object> responseMap = new HashMap<>();
+
         Chat chat = null;
         chat = chatService.postChat(username, chatData);
 
         responseMap.put("chatId",chat.getId());
         responseMap.put("memberId",chat.getMember().getUsername());
-
-
 
         if (chat==null) {
             return ResponseEntity
@@ -64,6 +77,7 @@ public class ChatController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         Map<String, Object> responseMap = new HashMap<>();
+
 //        Chat chat = null;
 //        chat = chatService.postChatBot(username, chatBotData);
 
@@ -79,38 +93,30 @@ public class ChatController {
         responseMap.put("header", resultMap.getHeaders()); //헤더 정보 확인
         responseMap.put("body", resultMap.getBody()); //실제 데이터 정보 확인
 
-
         return ResponseEntity
                 .created(URI.create("/"+username))
                 .headers(headers)
                 .body(new ResponseMessage(201,"chatBot posted",responseMap));
     }
 
-//    public String getData(String url ) {
-//        //Spring restTemplate
-//        HashMap<String, Object> result = new HashMap<String, Object>();
-//        String jsonInString = "";
-//
-//
-//        RestTemplate restTemplate = new RestTemplate();
-//
-//        HttpHeaders header = new HttpHeaders();
-//        HttpEntity<?> entity = new HttpEntity<>(header);
-//
-//        UriComponents uri = UriComponentsBuilder.fromHttpUrl(url).build();
-//
-//        ResponseEntity<?> resultMap = restTemplate.exchange(uri.toString(), HttpMethod.GET, entity, Object.class);
-//
-//        result.put("statusCode", resultMap.getStatusCodeValue()); //http status code를 확인
-//        result.put("header", resultMap.getHeaders()); //헤더 정보 확인
-//        result.put("body", resultMap.getBody()); //실제 데이터 정보 확인
-//
-//        //데이터를 제대로 전달 받았는지 확인 string형태로 파싱해줌
-//        ObjectMapper mapper = new ObjectMapper();
-//        jsonInString = mapper.writeValueAsString(resultMap.getBody());
-//
-//
-//        return jsonInString;
-//    }
 
+    @GetMapping("/{username}")
+    public ResponseEntity<?> getChat(@PathVariable String username) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+        Map<String, Object> responseMap = new HashMap<>();
+        Member member = memberRepository.findByUsername(username);
+
+        List<Object> chat = chatRepository.findChatContentsAllByMember(member);
+//        System.out.println(chat);
+
+//        List<LoginLog> log = loginLogRepository.findAllByMemberId(member.getId());
+
+        responseMap.put("chatData",chat);
+
+        return ResponseEntity
+                .created(URI.create("/"+username))
+                .headers(headers)
+                .body(new ResponseMessage(201,"getChat succeed",responseMap));
+    }
 }

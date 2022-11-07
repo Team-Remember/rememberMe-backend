@@ -1,4 +1,4 @@
-package com.yjh.rememberme.Chat.dto;
+package com.yjh.rememberme.chat.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
