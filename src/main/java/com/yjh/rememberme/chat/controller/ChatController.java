@@ -1,12 +1,9 @@
 package com.yjh.rememberme.chat.controller;
 
-import com.nimbusds.jose.shaded.json.JSONArray;
-import com.nimbusds.jose.shaded.json.JSONObject;
 import com.yjh.rememberme.chat.dto.ChatDTO;
 import com.yjh.rememberme.chat.service.ChatService;
 import com.yjh.rememberme.common.dto.ResponseMessage;
 import com.yjh.rememberme.database.entity.Chat;
-import com.yjh.rememberme.database.entity.LoginLog;
 import com.yjh.rememberme.database.entity.Member;
 import com.yjh.rememberme.database.repository.ChatRepository;
 import com.yjh.rememberme.database.repository.LoginLogRepository;
@@ -75,7 +72,7 @@ public class ChatController {
         Member member = memberRepository.findByUsername(username);
 
 
-//        Chat chat = chatRepository.findAllByMember(member);
+        List<Chat> chat = chatRepository.findAllByMember(member);
 
 //        JSONObject obj = new JSONObject();
 //        obj.put("chat", chat);
@@ -84,9 +81,9 @@ public class ChatController {
 //
 //        System.out.println(chat);
 
-        List<LoginLog> log = loginLogRepository.findAllByMemberId(member.getId());
+//        List<LoginLog> log = loginLogRepository.findAllByMemberId(member.getId());
 
-        responseMap.put("chatData",log);
+        responseMap.put("chatData",chat);
 
         return ResponseEntity
                 .created(URI.create("/"+username))
