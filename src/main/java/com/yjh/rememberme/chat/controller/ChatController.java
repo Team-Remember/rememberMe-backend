@@ -4,6 +4,7 @@ import com.yjh.rememberme.chat.dto.ChatDTO;
 import com.yjh.rememberme.chat.service.ChatService;
 import com.yjh.rememberme.common.dto.ResponseMessage;
 import com.yjh.rememberme.database.entity.Chat;
+import com.yjh.rememberme.database.entity.LoginLog;
 import com.yjh.rememberme.database.entity.Member;
 import com.yjh.rememberme.database.repository.ChatRepository;
 import com.yjh.rememberme.database.repository.LoginLogRepository;
@@ -17,6 +18,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.nio.charset.Charset;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,16 +27,10 @@ import java.util.Map;
 @RequestMapping("/chat")
 public class ChatController {
     private final ChatService chatService;
-    private final LoginLogRepository loginLogRepository;
-    private final MemberRepository memberRepository;
-    private final ChatRepository chatRepository;
 
     @Autowired
-    public ChatController(ChatService chatService, MemberRepository memberRepository, LoginLogRepository loginLogRepository, ChatRepository chatRepository) {
+    public ChatController(ChatService chatService) {
         this.chatService = chatService;
-        this.loginLogRepository = loginLogRepository;
-        this.memberRepository = memberRepository;
-        this.chatRepository = chatRepository;
     }
 
 
@@ -50,7 +46,7 @@ public class ChatController {
         chat = chatService.postChat(username, chatData);
 
         responseMap.put("chatId",chat.getId());
-        responseMap.put("memberId",chat.getMember().getUsername());
+        responseMap.put("username",username);
 
         if (chat==null) {
             return ResponseEntity
@@ -70,10 +66,8 @@ public class ChatController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         Map<String, Object> responseMap = new HashMap<>();
-        Member member = memberRepository.findByUsername(username);
 
-
-        List<Chat> chat = chatRepository.findAllByMember(member);
+        List<Chat> chat = chatService.getChat(username);
 
 //        JSONObject obj = new JSONObject();
 //        obj.put("chat", chat);
@@ -84,7 +78,12 @@ public class ChatController {
 
 //        List<LoginLog> log = loginLogRepository.findAllByMemberId(member.getId());
 
-        responseMap.put("chatData",chat);
+//        for (int i = 0; i < chat.size(); i++) {
+//            List<Chat> chatlist=null;
+//            chatlist.put(chat.get(i).getData());
+//        }
+//
+        responseMap.put("chatData", chat);
 
         return ResponseEntity
                 .created(URI.create("/"+username))

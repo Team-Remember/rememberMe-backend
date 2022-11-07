@@ -9,8 +9,12 @@ import java.util.List;
 import java.util.Map;
 
 public interface ChatRepository extends JpaRepository<Chat, Integer> {
-    void save(int memberId);
+    List<Chat> findChatsByMemberId(int memberId);
 
-    List<Chat> findAllByMember(@Param("member") Member member);
-    Chat findIdByMember(Member member);
+    List<Chat> findByMemberId(Integer id);
+
+//    List<Chat> findAllByMemberId(int member);
+//    List<Chat> findAllByMember(@Param("member") Member member);
+//    List<Chat> findAllByMemberId(@Param("member") int member);
+//    Chat findIdByMember(Member member);
 }
