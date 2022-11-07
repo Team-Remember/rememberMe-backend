@@ -1,9 +1,6 @@
 package com.yjh.rememberme.database.entity;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.Type;
@@ -14,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "\"TBL_CHAT\"")
@@ -25,7 +23,7 @@ public class Chat {
 
     @NotNull
     @Type(type = "json")
-    @Column(name = "\"CHAT_CONTENTS\"", nullable = false, columnDefinition = "json")
+    @Column(name = "\"CHAT_CONTENTS\"", nullable = false, columnDefinition = "jsonb")
     private List<Map<String, java.lang.Object>> data;
 
     @NotNull
@@ -34,10 +32,4 @@ public class Chat {
     @JoinColumn(name = "\"MEMBER_ID\"", nullable = false)
     private Member member;
 
-    @Builder
-    public Chat(Integer id, List<Map<String, java.lang.Object>> data, Member member) {
-        this.id = id;
-        this.data = data;
-        this.member = member;
-    }
 }
