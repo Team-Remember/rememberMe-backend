@@ -34,6 +34,7 @@ public class Chat {
     @Type(type = "text")
     private List<Map<String,String>> data;
 
+
     @Column(name = "MEMBER_ID", nullable = false)
     private int memberId;
 
