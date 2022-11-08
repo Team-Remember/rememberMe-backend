@@ -3,12 +3,17 @@ package com.yjh.rememberme.chat.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.NotNull;
 import java.util.Map;
 
 public class ChatBotDTO {
 
+    @NotNull
     private String chatRequest;
+    @NotNull
     private int userId;
+    @NotNull
     private int weId;
 
     public ChatBotDTO(){}

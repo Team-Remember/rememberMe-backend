@@ -54,7 +54,7 @@ public class ChatController {
         chat = chatService.postChat(username, chatData);
 
         responseMap.put("chatId",chat.getId());
-        responseMap.put("memberId",chat.getMember().getUsername());
+        responseMap.put("username",username);
 
         if (chat==null) {
             return ResponseEntity
@@ -74,10 +74,8 @@ public class ChatController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         Map<String, Object> responseMap = new HashMap<>();
-        Member member = memberRepository.findByUsername(username);
 
-
-//        Chat chat = chatRepository.findAllByMember(member);
+        List<Chat> chat = chatService.getChat(username);
 
 //        JSONObject obj = new JSONObject();
 //        obj.put("chat", chat);
@@ -86,9 +84,10 @@ public class ChatController {
 //
 //        System.out.println(chat);
 
-        List<LoginLog> log = loginLogRepository.findAllByMemberId(member.getId());
+//        List<LoginLog> log = loginLogRepository.findAllByMemberId(member.getId());
 
-        responseMap.put("chatData",log);
+
+        responseMap.put("chatData",chat);
 
         return ResponseEntity
                 .created(URI.create("/"+username))
