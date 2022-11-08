@@ -56,9 +56,9 @@ public class CharacterService {
     }
 
     @Transactional
-    public Character getCharacter(String username) {
+    public Character getCharacter(String nickname) {
         Character character = null;
-        Member member = memberRepository.findByUsername(username);
+        Member member = memberRepository.findByNickname(nickname);
         character = characterRepository.findByMember(member);
         return character;
     }
