@@ -44,8 +44,8 @@ public class MemberService {
 
             String password = passwordEncoder.encode(tempPassword);
 
-            foundMember = Member.builder().status("N").password(password).build();
-            memberRepository.save(foundMember);
+            foundMember.setStatus("N");
+            foundMember.setPassword(password);
             return 1;
         }
 
