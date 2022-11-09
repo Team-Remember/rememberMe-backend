@@ -29,7 +29,7 @@ jobs:
     - name: Set yml file
       uses: microsoft/variable-substitution@v1
       with:
-        files: ${{ env.RESOURCE_PATH }}
+        files: src/main/resources/application.yml
       env:
         spring.mail.username: ${{ secrets.MAIL_USERNAME }} 
         spring.mail.password: ${{ secrets.MAIL_PASSWORD }} 
