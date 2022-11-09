@@ -36,6 +36,7 @@ public class Member {
     private Date regDate;
 
     @NotNull
+    @Email
     @Column(name = "\"MEMBER_EMAIL\"", unique = true)
     private String email;
 

@@ -54,7 +54,7 @@ public class JwtUtil {
         Map<String, Object> claims = new HashMap<>();
         token = createToken(claims, username);
         if(token != null){
-            Member member = memberRepository.findByUsername(username);
+            int member = memberRepository.findIdByUsername(username);
             loginLogRepository.save(new LoginLog(0, new Date(), member));
         }
         return token;

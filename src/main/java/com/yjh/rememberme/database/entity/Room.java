@@ -28,9 +28,6 @@ public class Room {
     @Column(name = "room_status", nullable = false)
     private String roomStatus;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "\"MEMBER_ID\"", nullable = false)
-    private Member member;
+    @Column(name = "MEMBER_ID", nullable = false)
+    private int memberId;
 }

@@ -65,7 +65,7 @@ public class MemberController {
 
     }
 
-    @DeleteMapping("/{username}")
+    @PatchMapping("/{username}")
     public ResponseEntity<?> deleteUesr(@PathVariable String username){
 
         HttpHeaders headers = new HttpHeaders();
