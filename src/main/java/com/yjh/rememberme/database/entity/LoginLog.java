@@ -25,10 +25,7 @@ public class LoginLog {
     @Column(name = "\"LOGIN_DATE\"", nullable = false, columnDefinition = "DATE DEFAULT CURRENT_DATE")
     private Date loginDate;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "\"MEMBER_ID\"", nullable = false)
-    private Member member;
+    @Column(name = "MEMBER_ID", nullable = false)
+    private int memberId;
 
 }
