@@ -11,7 +11,7 @@ import java.util.Map;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ChatDTO {
-    private int opponentId;
+    private String opponentName;
     private List<Map<String, String>> data;
 }
 

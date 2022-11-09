@@ -75,19 +75,19 @@ public class ChatController {
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         Map<String, Object> responseMap = new HashMap<>();
 
+
         List<Chat> chat = chatService.getChat(username);
 
-//        JSONObject obj = new JSONObject();
-//        obj.put("chat", chat);
-//        JSONArray a = new JSONArray();
-//        a.add(0, obj);
-//
-//        System.out.println(chat);
+        RestTemplate restTemplate = new RestTemplate();
 
-//        List<LoginLog> log = loginLogRepository.findAllByMemberId(member.getId());
+        HttpEntity<?> entity = new HttpEntity<>(chat, headers);
+        String url = "https://8e71-119-194-163-123.jp.ngrok.io/chat_bot_train_db";
 
+        UriComponents uri = UriComponentsBuilder.fromHttpUrl(url).build();
+        ResponseEntity<?> resultMap = restTemplate.exchange(uri.toString(), HttpMethod.POST, entity, Map.class);
+        System.out.println("resultMap = " + resultMap);
 
-        responseMap.put("chatData",chat);
+        responseMap.put("succeed","Yes");
 
         return ResponseEntity
                 .created(URI.create("/"+username))

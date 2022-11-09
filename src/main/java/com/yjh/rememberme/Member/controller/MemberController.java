@@ -2,6 +2,7 @@ package com.yjh.rememberme.Member.controller;
 
 import com.yjh.rememberme.Member.dto.MatchIdDTO;
 import com.yjh.rememberme.Member.dto.MatchPasswordDTO;
+import com.yjh.rememberme.Member.dto.PasswordDTO;
 import com.yjh.rememberme.Member.service.MemberService;
 import com.yjh.rememberme.auth.service.MailService;
 import com.yjh.rememberme.common.dto.ResponseMessage;
@@ -26,15 +27,11 @@ import java.util.Map;
 @RestController
 @RequestMapping("/user")
 public class MemberController {
-    private final MemberRepository memberRepository;
-    private final AuthenticationManager authenticationManager;
     private final MemberService memberService;
     private final MailService mailService;
 
     @Autowired
-    public MemberController(MemberRepository memberRepository, AuthenticationManager authenticationManager, MemberService memberService, MailService mailService) {
-        this.memberRepository = memberRepository;
-        this.authenticationManager = authenticationManager;
+    public MemberController(MemberService memberService, MailService mailService) {
         this.memberService = memberService;
         this.mailService = mailService;
     }
@@ -64,7 +61,7 @@ public class MemberController {
 
         String tempPassword = memberService.matchPassword(matchPasswordDTO);
         System.out.println(matchPasswordDTO.getEmail() + "로 메일을 발송합니다.");
-        mailService.sendEmailForMatchPassword(matchPasswordDTO.getEmail(),tempPassword);
+        mailService.sendEmailForMatchPassword("pjhhs021@gmail.com",tempPassword);
 
     }
 
@@ -92,5 +89,9 @@ public class MemberController {
                 .headers(headers)
                 .body(new ResponseMessage(400, "Bad Request",responseMap));
 
+    }
+    @PutMapping("/password")
+    public  void putPassword(@RequestBody PasswordDTO passwordDTO){
+        memberService.putPassword(passwordDTO.getUsername(),passwordDTO.getOldPassword(),passwordDTO.getNewPassword());
     }
 }

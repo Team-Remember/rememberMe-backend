@@ -87,18 +87,17 @@ public class CharacterController {
                 .body(new ResponseMessage(201,"putCharacter succeed",responseMap));
     }
 
-    @GetMapping("find/{username}")
-    public ResponseEntity<?> getChat(@PathVariable String username) {
+    @GetMapping("find/{nickname}")
+    public ResponseEntity<?> getCharacter(@PathVariable String nickname) {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         Map<String, Object> responseMap = new HashMap<>();
         Character character = null;
-        character = characterService.getCharacter(username);
-        String nickname = memberService.findNicknameByUsername(username);
+        character = characterService.getCharacter(nickname);
 
         if (character==null) {
-            responseMap.put("username", username);
+            responseMap.put("nickename", nickname);
 
             return ResponseEntity
                     .badRequest()
@@ -114,11 +113,9 @@ public class CharacterController {
         responseMap.put("legsNum", character.getLegsNum());
         responseMap.put("feetNum", character.getFeetNum());
 
-        responseMap.put("characterId",character.getId());
-        responseMap.put("memberNickname",character.getMember().getNickname());
 
         return ResponseEntity
-                .created(URI.create("/"+username))
+                .created(URI.create("/"+nickname))
                 .headers(headers)
                 .body(new ResponseMessage(201,"character finding succeed ",responseMap));
     }

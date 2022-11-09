@@ -28,11 +28,12 @@ public class ChatService {
 
         Chat chat = null;
         Member member = memberRepository.findByUsername(username);
+        int opponentId = memberRepository.findIdByNickname(chatData.getOpponentName());
         chat = chatRepository.save(new Chat(
                 0,
                 chatData.getData(),
                 member.getId(),
-                chatData.getOpponentId()
+                opponentId
         ));
         return chat;
     }
