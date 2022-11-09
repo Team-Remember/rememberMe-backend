@@ -11,17 +11,16 @@ public class ChatBotDTO {
 
     @NotNull
     private String chatRequest;
-    @NotNull
-    private int userId;
-    @NotNull
-    private int weId;
+    private float memberId;
+    private float weId;
+
+
 
     public ChatBotDTO(){}
 
-
-    public ChatBotDTO(String chatRequest, int userId, int weId) {
+    public ChatBotDTO(String chatRequest, float memberId, float weId) {
         this.chatRequest = chatRequest;
-        this.userId = userId;
+        this.memberId = memberId;
         this.weId = weId;
     }
 
@@ -33,19 +32,19 @@ public class ChatBotDTO {
         this.chatRequest = chatRequest;
     }
 
-    public int getUserId() {
-        return userId;
+    public float getMemberId() {
+        return memberId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setMemberId(float memberId) {
+        this.memberId = memberId;
     }
 
-    public int getWeId() {
+    public float getWeId() {
         return weId;
     }
 
-    public void setWeId(int weId) {
+    public void setWeId(float weId) {
         this.weId = weId;
     }
 
@@ -53,7 +52,7 @@ public class ChatBotDTO {
     public String toString() {
         return "ChatBotDTO{" +
                 "chatRequest='" + chatRequest + '\'' +
-                ", userId=" + userId +
+                ", memberId=" + memberId +
                 ", weId=" + weId +
                 '}';
     }

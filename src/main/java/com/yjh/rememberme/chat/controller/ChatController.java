@@ -103,6 +103,7 @@ public class ChatController {
 
 
         System.out.println(chatBotData);
+//      System.out.println(chatBotData);
 
 //        Chat chat = null;
 //        chat = chatService.postChatBot(username, chatBotData);
@@ -110,11 +111,11 @@ public class ChatController {
         RestTemplate restTemplate = new RestTemplate();
 
         HttpEntity<?> entity = new HttpEntity<>(headers);
-        String url = "https://7b62-119-194-163-123.jp.ngrok.io/chat_bot";
+        String url = "https://8e71-119-194-163-123.jp.ngrok.io/chat_bot";
 
         UriComponents uri = UriComponentsBuilder.fromHttpUrl(url)
                 .queryParam("chatRequest", chatBotData.getChatRequest())
-                .queryParam("userId", chatBotData.getUserId())
+                .queryParam("memberId", chatBotData.getMemberId())
                 .queryParam("weId", chatBotData.getWeId())
                 .build();
 
