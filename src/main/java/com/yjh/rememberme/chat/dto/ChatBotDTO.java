@@ -15,6 +15,7 @@ public class ChatBotDTO {
     private float weId;
 
 
+
     public ChatBotDTO(){}
 
     public ChatBotDTO(String chatRequest, float memberId, float weId) {
