@@ -21,23 +21,31 @@ public class AdminMemberService {
 
     @Transactional
     public List<Member> getAllMember() {
-
-        List<Member> member = null;
-        member = memberRepository.findAll();
+        List<Member> member = memberRepository.findAll();
         List<Member> memberList = new ArrayList<>();
 
-        for (int i = 0; i < member.size(); i++) {
+        for (Member value : member) {
             memberList.add(Member.builder()
-                            .id(member.get(i).getId())
-                            .username(member.get(i).getUsername())
-                            .nickname(member.get(i).getNickname())
-                            .regDate(member.get(i).getRegDate())
-                            .status(member.get(i).getStatus())
-                            .email(member.get(i).getEmail())
-                            .role(member.get(i).getRole())
+                    .id(value.getId())
+                    .username(value.getUsername())
+                    .nickname(value.getNickname())
+                    .regDate(value.getRegDate())
+                    .status(value.getStatus())
+                    .email(value.getEmail())
+                    .role(value.getRole())
                     .build());
         }
 
         return memberList;
+    }
+    @Transactional
+    public Member getMember(String username) {
+        Member foundMember = null;
+        foundMember = memberRepository.findByUsername(username);
+        Member member = new Member();
+        member.setId(foundMember.getId());
+
+
+        return member;
     }
 }

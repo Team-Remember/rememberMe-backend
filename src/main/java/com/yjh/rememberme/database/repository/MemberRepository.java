@@ -20,7 +20,7 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
 
     Member findIdByUsername(String username);
 
-    int findIdByNickname(String nickname);
+    Member findIdByNickname(String nickname);
 
     Member findByNickname(String nickname);
 }
