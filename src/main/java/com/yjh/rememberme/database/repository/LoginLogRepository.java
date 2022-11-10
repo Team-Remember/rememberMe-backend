@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface LoginLogRepository extends JpaRepository<LoginLog, Integer> {
 
-    List<LoginLog> findAllByMemberId(int member);
-    int countByMemberId(int id);
+    List<LoginLog> findAllByMemberId(Integer memberId);
+    int countByMemberId(Integer memberId);
 }

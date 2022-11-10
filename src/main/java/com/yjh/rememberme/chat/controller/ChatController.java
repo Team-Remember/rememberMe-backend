@@ -111,7 +111,7 @@ public class ChatController {
         RestTemplate restTemplate = new RestTemplate();
 
         HttpEntity<?> entity = new HttpEntity<>(headers);
-        String url = "https://8e71-119-194-163-123.jp.ngrok.io/chat_bot";
+        String url = "https://0ba3-119-194-163-123.jp.ngrok.io/chat_bot";
 
         UriComponents uri = UriComponentsBuilder.fromHttpUrl(url)
                 .queryParam("chatRequest", chatBotData.getChatRequest())
