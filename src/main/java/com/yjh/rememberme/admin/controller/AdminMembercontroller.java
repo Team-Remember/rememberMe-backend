@@ -43,7 +43,7 @@ public class AdminMembercontroller {
     }
 
     @GetMapping("/{username}")
-    public ResponseEntity<?> getAllMember(@PathVariable String username){
+    public ResponseEntity<?> getMember(@PathVariable String username){
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
@@ -57,6 +57,38 @@ public class AdminMembercontroller {
         return ResponseEntity
                 .ok()
                 .headers(headers)
-                .body(new ResponseMessage(201, "getAllMember succeed",responseMap));
+                .body(new ResponseMessage(201, "getMember succeed",responseMap));
+    }
+
+    @GetMapping("/count")
+    public ResponseEntity<?> countMember(){
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
+        Map<String,Object> responseMap = new HashMap<>();
+        long count = 0;
+        count = adminMemberService.countMember();
+
+        responseMap.put("MemberCount", count);
+
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .body(new ResponseMessage(201, "countMember succeed",responseMap));
+    }
+
+    @GetMapping("/count/{status}")
+    public ResponseEntity<?> countByStatus(@PathVariable String status){
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
+        Map<String,Object> responseMap = new HashMap<>();
+        long count = 0;
+        count = adminMemberService.countByStatus(status);
+
+        responseMap.put("MemberCount", count);
+
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .body(new ResponseMessage(201, "countByStatus succeed",responseMap));
     }
 }
