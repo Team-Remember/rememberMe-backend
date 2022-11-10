@@ -26,6 +26,6 @@ public class LoginLog {
     private Date loginDate;
 
     @Column(name = "MEMBER_ID", nullable = false)
-    private int memberId;
+    private Integer memberId;
 
 }
