@@ -49,6 +49,26 @@ jobs:
     - name: Get timestamp
       uses: gerred/actions/current-time@master
       id: current-time
+    
+    - name: Run string replace
+      uses: frabert/replace-string-action@master
+      id: format-time
+      with:
+        pattern: '[:\.]+'
+        string: "${{ steps.current-time.outputs.time }}"
+        replace-with: '-'
+        flags: 'g'
+
+    - name: Beanstalk Deploy
+      uses: einaregilsson/beanstalk-deploy@v20
+      with:
+        aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        application_name: EB-rememberme-backend
+        environment_name: Ebremembermebackend-env
+        version_label: "github-action--${{ steps.format-time.outputs.replaced }}"
+        region: ap-northeast-2
+        deployment_package: Dockerrun.aws.json
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     - name: Update dependency graph
