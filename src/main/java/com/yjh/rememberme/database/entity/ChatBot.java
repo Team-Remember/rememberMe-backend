@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -20,8 +21,8 @@ public class ChatBot {
     private Integer chatBotId;
 
     @NotNull
-    @Column(name = "chat_bot_content")
-    private String chatBotContent;
+    @Column(name = "chat_bot_date", columnDefinition = "DATE DEFAULT CURRENT_DATE")
+    private Date chatBotDate;
 
     @NotNull
     @Column(name = "member_id")
