@@ -13,6 +13,9 @@ public interface ChatRepository extends JpaRepository<Chat, Integer> {
 
     List<Chat> findByMemberId(Integer id);
 
+
+    List<Chat> findByMemberIdAndOpponentId(Integer id, Integer opponentId);
+
 //    List<Chat> findAllByMemberId(int member);
 //    List<Chat> findAllByMember(@Param("member") Member member);
 //    List<Chat> findAllByMemberId(@Param("member") int member);
