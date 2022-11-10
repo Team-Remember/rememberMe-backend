@@ -64,7 +64,7 @@ public class Member {
     public enum Role {
         USER("user"), ADMIN("admin");
 
-        private String text;
+        private final String text;
         Role(String text) {this.text = text;}
 
         public String getText() { return text; }
