@@ -4,6 +4,12 @@ server:
 
 #ConfigImport
 spring:
+#  config:
+#    import:
+#      - classpath:config-yml/datasource-config.yml #DataSource
+#      - classpath:config-yml/aws-config.yml #S3Config
+#      - classpath:config-yml/jwt-config.yml #JwtConfig
+#      - classpath:config-yml/mail-config.yml #MailConfig
   #JpaConfig
   jpa:
     hibernate:
