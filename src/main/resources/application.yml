@@ -22,3 +22,26 @@ spring:
   servlet:
     multipart:
       location: classpath:tempfile
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: MAIL_USERNAME
+    password: MAIL_PASSWORD
+    properties:
+      mail:
+        smtp:
+          auth: true
+          timeout: 5000
+          starttls:
+            enable: true
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: DATASOURCE_URL
+    username: DATASOURCE_USERNAME
+    password: DATASOURCE_PASSWORD
+jwt:
+  header: Authorization
+  prefix: Bearer
+  secret: JWT_SECRET
+  access-token-validity-in-seconds: 43200 # 12 hours
+  refresh-token-validity-in-seconds: 1209600 # 2 weeks
