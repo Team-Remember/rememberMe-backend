@@ -32,4 +32,8 @@ build/
 
 ### VS Code ###
 .vscode/
-/src/main/resources
+/src/main/resources/application.yml
+/src/main/resources/config-yml/aws-config.yml
+/src/main/resources/config-yml/datasource-config.yml
+/src/main/resources/config-yml/jwt-config.yml
+/src/main/resources/config-yml/mail-config.yml
