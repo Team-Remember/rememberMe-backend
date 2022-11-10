@@ -28,8 +28,9 @@ public class AdminLoginLogController {
         this.adminLoginLogService = adminLoginLogService;
     }
 
+    //멤버아이디로 로그인로그 가져오기
     @GetMapping("{memberId}")
-    public ResponseEntity<?> findAllLoginLog(@PathVariable int memberId){
+    public ResponseEntity<?> findAllLoginLog(@PathVariable Integer memberId){
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
@@ -37,18 +38,25 @@ public class AdminLoginLogController {
 
         List<LoginLog> loginList= adminLoginLogService.findAllByMemberId(memberId);
 
+        responseMap.put("loginLog", loginList);
+
         return ResponseEntity
                 .ok()
                 .headers(headers)
                 .body(new ResponseMessage(200, "OK",responseMap));
     }
 
-    @GetMapping("/count")
-    public ResponseEntity<?> countLogin(){
+    //멤버아이디로 로그인 횟수 가져오기
+    @GetMapping("/{memberId}/count")
+    public ResponseEntity<?> countLogin(@PathVariable Integer memberId){
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
         Map<String,Object> responseMap = new HashMap<>();
+
+        int count = adminLoginLogService.countByMemberId(memberId);
+
+        responseMap.put("count", count);
 
         return ResponseEntity
                 .ok()

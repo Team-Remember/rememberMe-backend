@@ -18,10 +18,17 @@ public class AdminLoginLogService {
         this.memberRepository = memberRepository;
     }
 
-    public List<LoginLog> findAllByMemberId(int memberId) {
+    public List<LoginLog> findAllByMemberId(Integer memberId) {
 
         List<LoginLog> loginList = loginLogRepository.findAllByMemberId(memberId);
 
         return loginList;
+    }
+
+    public int countByMemberId(Integer memberId) {
+
+        int count = loginLogRepository.countByMemberId(memberId);
+
+        return count;
     }
 }
