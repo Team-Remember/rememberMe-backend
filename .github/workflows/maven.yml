@@ -64,8 +64,8 @@ jobs:
       with:
         aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        application_name: EB-rememberme-backend
-        environment_name: Ebremembermebackend-env
+        application_name: rememberme-backend
+        environment_name: Remembermebackend-env
         version_label: "github-action--${{ steps.format-time.outputs.replaced }}"
         region: ap-northeast-2
         deployment_package: Dockerrun.aws.json
