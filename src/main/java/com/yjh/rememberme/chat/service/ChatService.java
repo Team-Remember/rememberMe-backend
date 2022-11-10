@@ -28,20 +28,21 @@ public class ChatService {
 
         Chat chat = null;
         Member member = memberRepository.findByUsername(username);
-        int opponentId = memberRepository.findIdByNickname(chatData.getOpponentName());
+        Member opponentId = memberRepository.findIdByNickname(chatData.getOpponentName());
         chat = chatRepository.save(new Chat(
                 0,
                 chatData.getData(),
                 member.getId(),
-                opponentId
+                opponentId.getId()
         ));
         return chat;
     }
 
     @Transactional
-    public List<Chat> getChat(String username) {
+    public List<Chat> getChat(String username, String opponentname) {
         Member member = memberRepository.findByUsername(username);
-        List<Chat> chat = chatRepository.findByMemberId(member.getId());
+        Member opponent = memberRepository.findByNickname(opponentname);
+        List<Chat> chat = chatRepository.findByMemberIdAndOpponentId(member.getId(),opponent.getId());
 
 
         System.out.println("chat"+chat);

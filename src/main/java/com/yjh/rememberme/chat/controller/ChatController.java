@@ -29,18 +29,11 @@ import java.util.Map;
 @RequestMapping("/chat")
 public class ChatController {
     private final ChatService chatService;
-    private final LoginLogRepository loginLogRepository;
-    private final MemberRepository memberRepository;
-    private final ChatRepository chatRepository;
 
     @Autowired
-    public ChatController(ChatService chatService, MemberRepository memberRepository, LoginLogRepository loginLogRepository, ChatRepository chatRepository) {
+    public ChatController(ChatService chatService) {
         this.chatService = chatService;
-        this.loginLogRepository = loginLogRepository;
-        this.memberRepository = memberRepository;
-        this.chatRepository = chatRepository;
     }
-
 
     @PostMapping("/{username}")
     public ResponseEntity<?> postChat(@PathVariable String username, @RequestBody ChatDTO chatData) throws Exception {
@@ -48,7 +41,6 @@ public class ChatController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
         Map<String,Object> responseMap = new HashMap<>();
-
 
         Chat chat = null;
         chat = chatService.postChat(username, chatData);
@@ -69,19 +61,18 @@ public class ChatController {
                 .body(new ResponseMessage(201,"chat posted",responseMap));
     }
 
-    @GetMapping("/{username}")
-    public ResponseEntity<?> getChat(@PathVariable String username) {
+    @GetMapping("/")
+    public ResponseEntity<?> getChat(@RequestParam("username") String username, @RequestParam("opponentname") String opponentname) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         Map<String, Object> responseMap = new HashMap<>();
 
-
-        List<Chat> chat = chatService.getChat(username);
+        List<Chat> chat = chatService.getChat(username, opponentname);
 
         RestTemplate restTemplate = new RestTemplate();
 
         HttpEntity<?> entity = new HttpEntity<>(chat, headers);
-        String url = "https://8e71-119-194-163-123.jp.ngrok.io/chat_bot_train_db";
+        String url = "https://0ba3-119-194-163-123.jp.ngrok.io/chat_bot_train_db";
 
         UriComponents uri = UriComponentsBuilder.fromHttpUrl(url).build();
         ResponseEntity<?> resultMap = restTemplate.exchange(uri.toString(), HttpMethod.POST, entity, Map.class);
@@ -100,7 +91,6 @@ public class ChatController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         Map<String, Object> responseMap = new HashMap<>();
-
 
         System.out.println(chatBotData);
 //      System.out.println(chatBotData);
