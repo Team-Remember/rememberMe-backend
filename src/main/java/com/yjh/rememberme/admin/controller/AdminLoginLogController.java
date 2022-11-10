@@ -61,7 +61,7 @@ public class AdminLoginLogController {
         return ResponseEntity
                 .ok()
                 .headers(headers)
-                .body(new ResponseMessage(200, "OK",responseMap));
+                .body(new ResponseMessage(200,"OK",responseMap));
     }
 
 }
