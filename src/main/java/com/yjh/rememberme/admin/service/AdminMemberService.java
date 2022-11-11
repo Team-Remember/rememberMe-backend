@@ -44,8 +44,28 @@ public class AdminMemberService {
         foundMember = memberRepository.findByUsername(username);
         Member member = new Member();
         member.setId(foundMember.getId());
+        member.setUsername(foundMember.getUsername());
+        member.setNickname(foundMember.getNickname());
+        member.setRegDate(foundMember.getRegDate());
+        member.setEmail(foundMember.getEmail());
+        member.setRole(foundMember.getRole());
+        member.setStatus(foundMember.getStatus());
 
 
         return member;
+    }
+
+    public long countMember() {
+        long count = 0;
+        count = memberRepository.count();
+
+        return count;
+    }
+
+    public long countByStatus(String status) {
+        long count = 0;
+        count = memberRepository.countByStatus(status);
+
+        return count;
     }
 }
