@@ -18,7 +18,7 @@ public class AdminChatBotService {
     }
 
     public int countAllByChatBotIdIsNotNull(){
-        int count = chatBotRepository.countAllByChatBotIdIsNotNull();
+        int count = chatBotRepository.countChatBotByChatBotDateIsNotNull();
 
         return count;
     }

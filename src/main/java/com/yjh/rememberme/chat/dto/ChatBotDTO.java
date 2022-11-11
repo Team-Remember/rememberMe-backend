@@ -11,17 +11,17 @@ public class ChatBotDTO {
 
     @NotNull
     private String chatRequest;
-    private float memberId;
-    private float weId;
+    private String memberNickname;
+    private String weNickname;
 
 
 
     public ChatBotDTO(){}
 
-    public ChatBotDTO(String chatRequest, float memberId, float weId) {
+    public ChatBotDTO(String chatRequest, String memberNickname, String weNickname) {
         this.chatRequest = chatRequest;
-        this.memberId = memberId;
-        this.weId = weId;
+        this.memberNickname = memberNickname;
+        this.weNickname = weNickname;
     }
 
     public String getChatRequest() {
@@ -32,28 +32,28 @@ public class ChatBotDTO {
         this.chatRequest = chatRequest;
     }
 
-    public float getMemberId() {
-        return memberId;
+    public String getMemberNickname() {
+        return memberNickname;
     }
 
-    public void setMemberId(float memberId) {
-        this.memberId = memberId;
+    public void setMemberNickname(String memberNickname) {
+        this.memberNickname = memberNickname;
     }
 
-    public float getWeId() {
-        return weId;
+    public String getWeNickname() {
+        return weNickname;
     }
 
-    public void setWeId(float weId) {
-        this.weId = weId;
+    public void setWeNickname(String weNickname) {
+        this.weNickname = weNickname;
     }
 
     @Override
     public String toString() {
         return "ChatBotDTO{" +
                 "chatRequest='" + chatRequest + '\'' +
-                ", memberId=" + memberId +
-                ", weId=" + weId +
+                ", memberNickname='" + memberNickname + '\'' +
+                ", weNickname='" + weNickname + '\'' +
                 '}';
     }
 }

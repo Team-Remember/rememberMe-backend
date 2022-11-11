@@ -1,16 +1,10 @@
 package com.yjh.rememberme.chat.controller;
 
-import com.nimbusds.jose.shaded.json.JSONArray;
-import com.nimbusds.jose.shaded.json.JSONObject;
 import com.yjh.rememberme.chat.dto.ChatBotDTO;
 import com.yjh.rememberme.chat.dto.ChatDTO;
 import com.yjh.rememberme.chat.service.ChatService;
 import com.yjh.rememberme.common.dto.ResponseMessage;
 import com.yjh.rememberme.database.entity.Chat;
-import com.yjh.rememberme.database.entity.LoginLog;
-import com.yjh.rememberme.database.entity.Member;
-import com.yjh.rememberme.database.repository.ChatRepository;
-import com.yjh.rememberme.database.repository.LoginLogRepository;
 import com.yjh.rememberme.database.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
@@ -29,10 +23,12 @@ import java.util.Map;
 @RequestMapping("/chat")
 public class ChatController {
     private final ChatService chatService;
+    private final MemberRepository memberRepository;
 
     @Autowired
-    public ChatController(ChatService chatService) {
+    public ChatController(ChatService chatService, MemberRepository memberRepository) {
         this.chatService = chatService;
+        this.memberRepository = memberRepository;
     }
 
     @PostMapping("/{username}")
@@ -86,37 +82,46 @@ public class ChatController {
                 .body(new ResponseMessage(201,"getChat succeed",responseMap));
     }
 
+    //AI 챗봇 컨트롤러
     @PostMapping("/{username}/chat_bot")
     public ResponseEntity<?> postChatBot(@PathVariable String username, @RequestBody ChatBotDTO chatBotData) throws Exception{
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         Map<String, Object> responseMap = new HashMap<>();
 
-        System.out.println(chatBotData);
-//      System.out.println(chatBotData);
-
-//        Chat chat = null;
-//        chat = chatService.postChatBot(username, chatBotData);
+//        System.out.println(chatBotData);
 
         RestTemplate restTemplate = new RestTemplate();
 
         HttpEntity<?> entity = new HttpEntity<>(headers);
-        String url = "https://0ba3-119-194-163-123.jp.ngrok.io/chat_bot";
+        String url = "https://b009-119-194-163-123.jp.ngrok.io/chat_bot";
 
         UriComponents uri = UriComponentsBuilder.fromHttpUrl(url)
                 .queryParam("chatRequest", chatBotData.getChatRequest())
-                .queryParam("memberId", chatBotData.getMemberId())
-                .queryParam("weId", chatBotData.getWeId())
+                .queryParam("memberId", memberRepository.findByNickname(chatBotData.getMemberNickname()).getId())
+                .queryParam("weId", memberRepository.findByNickname(chatBotData.getWeNickname()).getId())
                 .build();
 
+
         ResponseEntity<?> resultMap = restTemplate.exchange(uri.toString(), HttpMethod.GET, entity, Map.class);
+
+        //챗봇 데이터가 null이면 에러처리
+        if(resultMap.getBody() == null){
+            return ResponseEntity
+                    .badRequest()
+                    .headers(headers)
+                    .body(new ResponseMessage(400, "chatBot failed", responseMap));
+        }
+
         responseMap.put("statusCode", resultMap.getStatusCodeValue()); //http status code를 확인
         responseMap.put("header", resultMap.getHeaders()); //헤더 정보 확인
         responseMap.put("body", resultMap.getBody()); //실제 데이터 정보 확인
 
+        chatService.saveChatBot(chatBotData);
+
         return ResponseEntity
                 .created(URI.create("/"+username))
                 .headers(headers)
-                .body(new ResponseMessage(201,"chatBot posted",responseMap));
+                .body(new ResponseMessage(201,"chatBot succeeded",responseMap));
     }
 }

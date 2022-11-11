@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ChatBotRepository extends JpaRepository<ChatBot, Integer> {
 
-    int countAllByChatBotIdIsNotNull();
+    int countChatBotByChatBotDateIsNotNull();
 }
