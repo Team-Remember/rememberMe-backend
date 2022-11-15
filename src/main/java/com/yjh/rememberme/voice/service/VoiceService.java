@@ -19,7 +19,7 @@ public class VoiceService {
         this.memberRepository = memberRepository;
     }
 
-    public Voice postVoiceLog(String username, String opponentName) {
+    public void postVoiceLog(String username, String opponentName) {
         Voice voice = null;
         try {
             voice = voiceRepository.save(new Voice(0,
@@ -32,6 +32,5 @@ public class VoiceService {
             System.out.println("postVoiceLog fail");
         }
 
-        return voice;
     }
 }
