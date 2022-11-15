@@ -3,6 +3,7 @@ package com.yjh.rememberme.auth.controller;
 import com.yjh.rememberme.auth.dto.EmailDTO;
 import com.yjh.rememberme.auth.dto.NicknameDTO;
 import com.yjh.rememberme.auth.dto.UsernameDTO;
+import com.yjh.rememberme.auth.service.DupCheckService;
 import com.yjh.rememberme.common.dto.ResponseMessage;
 import com.yjh.rememberme.database.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +24,11 @@ import java.util.Map;
 @RestController
 @RequestMapping("/duplication")
 public class DupCheckController {
-    private final MemberRepository memberRepository;
+    private final DupCheckService dupCheckService;
 
     @Autowired
-    public DupCheckController(MemberRepository memberRepository) {
-        this.memberRepository = memberRepository;
+    public DupCheckController(DupCheckService dupCheckService) {
+        this.dupCheckService = dupCheckService;
     }
 
     @PostMapping("username")
@@ -37,7 +38,7 @@ public class DupCheckController {
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         Map<String, Object> responseMap = new HashMap<>();
 
-        int result = memberRepository.countByUsername(usernameDTO.getUsername());
+        int result = dupCheckService.countUsername(usernameDTO);
         responseMap.put("username",usernameDTO.getUsername());
 
         if (result != 0) {
@@ -58,7 +59,7 @@ public class DupCheckController {
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         Map<String, Object> responseMap = new HashMap<>();
 
-        int result =memberRepository.countByEmail(emailDTO.getEmail());
+        int result =dupCheckService.countEmail(emailDTO);
         responseMap.put("email", emailDTO.getEmail());
 
         if (result != 0){
@@ -79,7 +80,7 @@ public class DupCheckController {
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         Map<String, Object> responseMap = new HashMap<>();
 
-        int result =memberRepository.countByNickname(nicknameDTO.getNickname());
+        int result =dupCheckService.countNickname(nicknameDTO);
         responseMap.put("nickname", nicknameDTO.getNickname());
 
         if (result != 0){
