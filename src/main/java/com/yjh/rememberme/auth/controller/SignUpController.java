@@ -1,6 +1,7 @@
 package com.yjh.rememberme.auth.controller;
 
 import com.yjh.rememberme.auth.dto.SignUpDTO;
+import com.yjh.rememberme.auth.service.SignUpService;
 import com.yjh.rememberme.common.dto.ResponseMessage;
 import com.yjh.rememberme.database.entity.Member;
 import com.yjh.rememberme.database.repository.MemberRepository;
@@ -28,17 +29,15 @@ import java.util.Map;
 @RestController
 @RequestMapping("/signup")
 public class SignUpController {
-    private final MemberRepository memberRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final SignUpService signUpService;
 
     @Autowired
-    public SignUpController(MemberRepository memberRepository, PasswordEncoder passwordEncoder) {
-        this.memberRepository = memberRepository;
-        this.passwordEncoder = passwordEncoder;
+    public SignUpController(SignUpService signUpService) {
+        this.signUpService = signUpService;
     }
 
     @PostMapping
-    public ResponseEntity<?> signUp(@RequestBody SignUpDTO signUp){
+    public ResponseEntity<?> postSignUp(@RequestBody SignUpDTO signUp){
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
@@ -46,15 +45,7 @@ public class SignUpController {
         Member member = null;
 
         try {
-            member = memberRepository.save(new Member(0,
-                    signUp.getUsername(),
-                    signUp.getNickname(),
-                    passwordEncoder.encode(signUp.getPassword()),
-                    new java.sql.Date(new Date().getTime()),
-                    signUp.getEmail(),
-                    Member.Role.USER,
-                    "Y"
-                    ));
+            member = signUpService.postSignUp(signUp);
         } catch (Exception e){
             System.out.println(e);
             responseMap.put("inputUserName",signUp.getUsername());

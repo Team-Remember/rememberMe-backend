@@ -3,11 +3,8 @@ package com.yjh.rememberme.database.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @Data
 @AllArgsConstructor
@@ -20,13 +17,17 @@ public class Room {
     @Column(name = "room_id", nullable = false)
     private Integer id;
 
-    @NotNull
     @Column(name = "room_name", nullable = false, unique = true)
     private String roomName;
 
-    @NotNull
     @Column(name = "room_status", nullable = false)
     private String roomStatus;
+
+    @Column(name ="room_likes", nullable = false)
+    private int roomLikes;
+
+    @Column(name = "room_views", nullable = false)
+    private int roomViews;
 
     @Column(name = "MEMBER_ID", nullable = false)
     private int memberId;

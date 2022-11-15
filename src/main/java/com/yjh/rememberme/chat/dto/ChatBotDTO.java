@@ -11,7 +11,9 @@ public class ChatBotDTO {
 
     @NotNull
     private String chatRequest;
+    @NotNull
     private String memberNickname;
+    @NotNull
     private String weNickname;
 
 
