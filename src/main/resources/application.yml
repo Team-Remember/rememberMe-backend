@@ -3,7 +3,7 @@ server:
   port: 8001
 
 #ConfigImport
-#spring:
+spring:
 #  config:
 #    import:
 #      - classpath:config-yml/datasource-config.yml #DataSource
