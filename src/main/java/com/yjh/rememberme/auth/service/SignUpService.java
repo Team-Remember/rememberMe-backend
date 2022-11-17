@@ -6,6 +6,7 @@ import com.yjh.rememberme.database.repository.MemberRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Date;
 
 @Service
@@ -17,7 +18,7 @@ public class SignUpService {
         this.memberRepository = memberRepository;
         this.passwordEncoder = passwordEncoder;
     }
-
+    @Transactional
     public Member postSignUp(SignUpDTO signUp) {
         Member member= null;
         member = memberRepository.save(new Member(0,

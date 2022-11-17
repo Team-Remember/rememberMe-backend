@@ -9,7 +9,9 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class VoiceDTO {
     @NotNull
-    private Byte voiceData;
+    private String userId;
     @NotNull
-    private String opponentName;
+    private String weId;
+    @NotNull
+    private byte[] voice;
 }

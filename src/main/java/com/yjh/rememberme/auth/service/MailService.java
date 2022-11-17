@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.transaction.Transactional;
 import java.util.Random;
 
 /**
@@ -19,7 +20,7 @@ public class MailService {
 
     @Autowired
     private JavaMailSender mailSender;
-
+    @Transactional
     public int sendEmail(String toEmail) throws MessagingException {
 
         Random random = new Random();
@@ -108,7 +109,7 @@ public class MailService {
 
         return certCode;
     }
-
+    @Transactional
     public void sendEmailForMatchId(String toEmail,String username) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
@@ -190,7 +191,7 @@ public class MailService {
 
         System.out.println("메일 발송 완료");
     }
-
+    @Transactional
     public void sendEmailForMatchPassword(String toEmail, String tempPassword) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);

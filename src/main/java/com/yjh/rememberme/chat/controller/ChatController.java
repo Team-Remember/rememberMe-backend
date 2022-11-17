@@ -30,7 +30,7 @@ public class ChatController {
         this.chatService = chatService;
         this.memberRepository = memberRepository;
     }
-
+    //채팅 저장하기
     @PostMapping("/{username}")
     public ResponseEntity<?> postChat(@PathVariable String username, @RequestBody ChatDTO chatData) throws Exception {
 
@@ -56,7 +56,7 @@ public class ChatController {
                 .headers(headers)
                 .body(new ResponseMessage(201,"chat posted",responseMap));
     }
-
+    //AI 복원 요청시
     @GetMapping("/")
     public ResponseEntity<?> getChat(@RequestParam("username") String username, @RequestParam("opponentname") String opponentname) {
         HttpHeaders headers = new HttpHeaders();
@@ -94,7 +94,7 @@ public class ChatController {
         RestTemplate restTemplate = new RestTemplate();
 
         HttpEntity<?> entity = new HttpEntity<>(headers);
-        String url = "https://f5ef-119-194-163-123.jp.ngrok.io/chat_bot";
+        String url = "https://ae78-119-194-163-123.jp.ngrok.io/chat_bot";
 
         UriComponents uri = UriComponentsBuilder.fromHttpUrl(url)
                 .queryParam("chatRequest", chatBotData.getChatRequest())

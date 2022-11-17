@@ -20,7 +20,7 @@ public class MemberService {
         this.memberRepository = memberRepository;
         this.passwordEncoder = passwordEncoder;
     }
-
+    @Transactional
     public String findNicknameByUsername(String username) {
         String nickname = null;
         nickname = memberRepository.findByUsername(username).getNickname();
@@ -57,7 +57,7 @@ public class MemberService {
         Member foundMember = memberRepository.findById(id);
         foundMember.setNickname(member.getNickname());
     }
-
+    @Transactional
     public String matchUsername(MatchIdDTO matchIdDTO) {
         Member foundMember = memberRepository.findByNicknameAndEmail(matchIdDTO.getNickname(), matchIdDTO.getEmail());
         return foundMember.getUsername();
@@ -77,7 +77,7 @@ public class MemberService {
 
         return tempPassword;
     }
-
+    @Transactional
     public Object getUserByUsername(String username) {
         Member member = memberRepository.findByUsername(username);
         return member;
