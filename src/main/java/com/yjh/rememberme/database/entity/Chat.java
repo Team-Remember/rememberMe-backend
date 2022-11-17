@@ -21,6 +21,7 @@ import java.util.Map;
 @Table(name = "\"TBL_CHAT\"")
 @TypeDef(name = "text", typeClass = JsonStringType.class)
 public class Chat {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "\"CHAT_ID\"", nullable = false)
@@ -31,7 +32,6 @@ public class Chat {
     @Column(name = "\"CHAT_CONTENTS\"", nullable = false)
     @Type(type = "text")
     private List<Map<String,String>> data;
-
 
     @Column(name = "MEMBER_ID", nullable = false)
     private int memberId;
