@@ -114,12 +114,13 @@
         </dependency>
 
         <!-- AWS 클라우드를 위한 라이브러리-->
-        <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-aws -->
+        <!-- https://mvnrepository.com/artifact/io.awspring.cloud/spring-cloud-starter-aws -->
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
+            <groupId>io.awspring.cloud</groupId>
             <artifactId>spring-cloud-starter-aws</artifactId>
-            <version>2.2.6.RELEASE</version>
+            <version>2.4.2</version>
         </dependency>
+
 
     </dependencies>
 
