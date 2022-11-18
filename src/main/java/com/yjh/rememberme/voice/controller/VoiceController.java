@@ -41,7 +41,7 @@ public class VoiceController {
         RestTemplate restTemplate = new RestTemplate();
 
         HttpEntity<?> entity = new HttpEntity<>(voiceDTO, headers);
-        String url = "https://ae78-119-194-163-123.jp.ngrok.io/voice_chat_bot_inference";
+        String url = "https://425a-119-194-163-123.jp.ngrok.io/voice_chat_bot_inference";
 
         UriComponents uri = UriComponentsBuilder.fromHttpUrl(url).build();
         ResponseEntity<?> resultMap = restTemplate.exchange(uri.toString(), HttpMethod.POST, entity, Map.class);
