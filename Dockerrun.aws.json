@@ -1,0 +1,13 @@
+{
+  "AWSEBDockerrunVersion": "1",
+  "Image": {
+    "Name": "pjhhs021/rememberme-backend",
+    "Update": "true"
+  },
+  "Ports": [
+    {
+      "ContainerPort": 8001,
+      "HostPort": 8080
+    }
+  ]
+}
