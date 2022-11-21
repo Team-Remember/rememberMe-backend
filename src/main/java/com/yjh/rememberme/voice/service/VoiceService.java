@@ -47,20 +47,20 @@ public class VoiceService {
 
     }
 
-    public Voice postVoice(String username, VoiceDTO voiceDTO) throws UnsupportedAudioFileException, IOException {
-        Voice voice = null;
-        byte[] voiceByteArray = voiceDTO.getVoice();
-        String voiceName = UUID.randomUUID() + "-voice_" + memberRepository.findByUsername(username).getId() + ".wave";
-        String voicePath = s3VoiceFile.upload(voiceByteArray, voiceName, "voice");
-
-        voice = voiceRepository.save(new Voice(
-                0,
-                new java.sql.Date(new Date().getTime()),
-                memberRepository.findByUsername(username).getUsername(),
-                memberRepository.findByNickname(voiceDTO.getWeId()).getUsername(),
-                voicePath,
-                voiceName
-        ));
-        return voice;
-    }
+//    public Voice postVoice(String username, VoiceDTO voiceDTO) throws UnsupportedAudioFileException, IOException {
+//        Voice voice = null;
+//        byte[] voiceByteArray = voiceDTO.getVoice();
+//        String voiceName = UUID.randomUUID() + "-voice_" + memberRepository.findByUsername(username).getId() + ".wave";
+//        String voicePath = s3VoiceFile.upload(voiceByteArray, voiceName, "voice");
+//
+//        voice = voiceRepository.save(new Voice(
+//                0,
+//                new java.sql.Date(new Date().getTime()),
+//                memberRepository.findByUsername(username).getUsername(),
+//                memberRepository.findByNickname(voiceDTO.getWeId()).getUsername(),
+//                voicePath,
+//                voiceName
+//        ));
+//        return voice;
+//    }
 }
