@@ -57,10 +57,9 @@ jobs:
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.EC2_HOST }}
-        username: ${{ secrets.EC2_ID }}
+        username: ubuntu
         password: ${{ secrets.EC2_PASSWORD }}
         script: |
-          ubuntu
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           docker rm -f $(docker ps -qa)
           docker rmi ${{ secrets.DOCKER_REPO }}/rememberme-backend
