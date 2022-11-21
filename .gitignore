@@ -37,3 +37,4 @@ build/
 /src/main/resources/config-yml/datasource-config.yml
 /src/main/resources/config-yml/jwt-config.yml
 /src/main/resources/config-yml/mail-config.yml
+/.github/workflows

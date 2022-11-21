@@ -34,7 +34,7 @@ public class VoiceController {
     public VoiceController(VoiceService voiceService) {
         this.voiceService = voiceService;
     }
-    //
+
     @PostMapping("/{username}")
     public ResponseEntity<?> postVoiceChatBot(@PathVariable String username , VoiceDTO voiceDTO) throws IOException {
         System.out.println(voiceDTO);
@@ -88,19 +88,19 @@ public class VoiceController {
                 .body(new ResponseMessage(201,"postVoiceChatBot succeed",responseMap));
     }
     //음성채팅 업로드
-//    @PostMapping("/postvoice/{username}")
-//    public ResponseEntity<?> postVoice(@PathVariable String username , @RequestBody VoiceDTO voiceDTO) throws UnsupportedAudioFileException, IOException {
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
-//        Map<String, Object> responseMap = new HashMap<>();
-//        Voice voice = null;
-//        voice = voiceService.postVoice(username, voiceDTO);
-//
-//        responseMap.put("voiceName",voice.getVoiceName());
-//
-//        return ResponseEntity
-//                .created(URI.create("/" + username))
-//                .headers(headers)
-//                .body(new ResponseMessage(201, "postVoice succeed", responseMap));
-//    }
+    @PostMapping("/postvoice/{username}")
+    public ResponseEntity<?> postVoice(@PathVariable String username , VoiceDTO voiceDTO) throws UnsupportedAudioFileException, IOException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+        Map<String, Object> responseMap = new HashMap<>();
+        Voice voice = null;
+        voice = voiceService.postVoice(username, voiceDTO);
+
+        responseMap.put("voiceName",voice.getVoiceName());
+
+        return ResponseEntity
+                .created(URI.create("/" + username))
+                .headers(headers)
+                .body(new ResponseMessage(201, "postVoice succeed", responseMap));
+    }
 }
