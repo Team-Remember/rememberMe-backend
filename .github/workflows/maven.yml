@@ -52,6 +52,19 @@ jobs:
     - name: Get timestamp
       uses: gerred/actions/current-time@master
       id: current-time
+      
+    - name: EC2 Docker Run
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_ID }}
+        key: ${{ secrets.EC2_KEY }}
+        script: |
+          ubuntu
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          docker rm -f $(docker ps -qa)
+          docker rmi ${{ secrets.DOCKER_REPO }}/rememberme-backend
+          docker run -p 8080:8001 -d ${{ secrets.DOCKER_REPO }}/rememberme-backend
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     - name: Update dependency graph
