@@ -65,7 +65,7 @@ public class VoiceController {
 
 //
 //        HttpEntity<?> entity = new HttpEntity<>(voiceDTO, headers2);
-        String url = "https://e384-119-194-163-123.jp.ngrok.io/voice_chat_bot_inference";
+        String url = "https://be06-119-194-163-123.jp.ngrok.io/voice_chat_bot_inference";
         System.out.println(voiceDTO);
 
 //        UriComponents uri = UriComponentsBuilder.fromHttpUrl(url).build();

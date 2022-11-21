@@ -68,7 +68,7 @@ public class ChatController {
         RestTemplate restTemplate = new RestTemplate();
 
         HttpEntity<?> entity = new HttpEntity<>(chat, headers);
-        String url = "https://425a-119-194-163-123.jp.ngrok.io/chat_bot_train_db";
+        String url = "https://be06-119-194-163-123.jp.ngrok.io/chat_bot_train_db";
 
         UriComponents uri = UriComponentsBuilder.fromHttpUrl(url).build();
         ResponseEntity<?> resultMap = restTemplate.exchange(uri.toString(), HttpMethod.POST, entity, Map.class);
@@ -94,7 +94,7 @@ public class ChatController {
         RestTemplate restTemplate = new RestTemplate();
 
         HttpEntity<?> entity = new HttpEntity<>(headers);
-        String url = "https://425a-119-194-163-123.jp.ngrok.io/chat_bot";
+        String url = "https://be06-119-194-163-123.jp.ngrok.io/chat_bot";
 
         UriComponents uri = UriComponentsBuilder.fromHttpUrl(url)
                 .queryParam("chatRequest", chatBotData.getChatRequest())
