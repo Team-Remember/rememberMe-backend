@@ -58,7 +58,7 @@ jobs:
       with:
         host: ${{ secrets.EC2_HOST }}
         username: ${{ secrets.EC2_ID }}
-        password: ${{ secrets.PASSWORD }}
+        password: ${{ secrets.EC2_PASSWORD }}
         script: |
           ubuntu
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
