@@ -14,19 +14,19 @@ import javax.persistence.*;
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "room_id", nullable = false)
+    @Column(name = "ROOM_ID", nullable = false)
     private Integer id;
 
-    @Column(name = "room_name", nullable = false, unique = true)
+    @Column(name = "ROOM_NAME", nullable = false, unique = true)
     private String roomName;
 
-    @Column(name = "room_status", nullable = false)
+    @Column(name = "ROOM_STATUS", nullable = false)
     private String roomStatus;
 
-    @Column(name ="room_likes", nullable = false)
+    @Column(name ="ROOM_LIKES", nullable = false)
     private int roomLikes;
 
-    @Column(name = "room_views", nullable = false)
+    @Column(name = "ROOM_VIEWS", nullable = false)
     private int roomViews;
 
     @Column(name = "MEMBER_ID", nullable = false)

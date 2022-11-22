@@ -35,6 +35,7 @@ public class VoiceController {
         this.voiceService = voiceService;
     }
 
+    //음성 복원 봇 API
     @PostMapping("/{username}")
     public ResponseEntity<?> postVoiceChatBot(@PathVariable String username , VoiceDTO voiceDTO) throws IOException {
         System.out.println(voiceDTO);
@@ -42,33 +43,23 @@ public class VoiceController {
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         Map<String, Object> responseMap = new HashMap<>();
 
-//        voiceService.postVoiceLog(username, voiceDTO.getWeId());
+        //호출 로그쌓기
+        voiceService.postVoiceLog(username, voiceDTO.getOpponentNickname());
+
         HttpHeaders headers2 = new HttpHeaders();
         headers2.setAccept(Arrays.asList(MediaType.APPLICATION_OCTET_STREAM));
         headers2.setContentType(MediaType.MULTIPART_FORM_DATA);
-//        headers2.setContentType(MediaType.MULTIPART_FORM_DATA);
-//        voiceDTO.getVoice().getBytes();
-
-//        byte[] voiceData = voiceDTO.getVoice().getBytes();
-//        System.out.println("voiceData = " + voiceData);
-//        ByteArrayResource voiceResource = new ByteArrayResource(voiceData);
-//        System.out.println(voiceResource);
 
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
-        body.add("voice", voiceDTO.getVoice().getResource());
-        body.add("userId", voiceDTO.getUserId());
-        body.add("weId", voiceDTO.getWeId());
+        body = voiceService.addBody(voiceDTO);
 
         HttpEntity<?> requestEntity = new HttpEntity<>(body, headers2);
 
         RestTemplate restTemplate = new RestTemplate();
 
-//
-//        HttpEntity<?> entity = new HttpEntity<>(voiceDTO, headers2);
         String url = "https://be06-119-194-163-123.jp.ngrok.io/voice_chat_bot_inference";
         System.out.println(voiceDTO);
 
-//        UriComponents uri = UriComponentsBuilder.fromHttpUrl(url).build();
         ResponseEntity<?> resultMap = restTemplate.postForEntity(url, requestEntity, byte[].class);
         System.out.println("resultMap = " + resultMap);
 
@@ -102,5 +93,28 @@ public class VoiceController {
                 .created(URI.create("/" + username))
                 .headers(headers)
                 .body(new ResponseMessage(201, "postVoice succeed", responseMap));
+    }
+
+    //음성복원
+    @GetMapping("/")
+    public ResponseEntity<?> getVoice(@RequestParam("username") String username, @RequestParam("opponentname") String opponentname) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+        Map<String, Object> responseMap = new HashMap<>();
+
+        Map<String, Object> map = voiceService.putMap(username, opponentname);
+
+        RestTemplate restTemplate = new RestTemplate();
+        HttpEntity<?> requestEntity = new HttpEntity<>(map, headers);
+        String url = "https://be06-119-194-163-123.jp.ngrok.io/voice_chat_bot_inference";
+
+        ResponseEntity<?> resultMap = restTemplate.postForEntity(url, requestEntity, Map.class);
+
+        responseMap.put("result",resultMap);
+
+        return ResponseEntity
+                .created(URI.create("/" + username))
+                .headers(headers)
+                .body(new ResponseMessage(201, "getVoice succeed", responseMap));
     }
 }

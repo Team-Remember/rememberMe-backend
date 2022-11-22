@@ -15,13 +15,13 @@ import java.util.Date;
 public class VoiceLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "voice_log_id")
+    @Column(name = "VOICE_LOG_ID")
     private Integer id;
-    @Column(name = "voice_log_date", nullable = false, columnDefinition = "DATE DEFAULT CURRENT_DATE")
+    @Column(name = "VOICE_LOG_DATE", nullable = false, columnDefinition = "DATE DEFAULT CURRENT_DATE")
     private Date loginDate;
-    @Column(name = "member_id", nullable = false)
+    @Column(name = "MEMBER_ID", nullable = false)
     private Integer memberId;
-    @Column(name = "opponent_id", nullable = false)
+    @Column(name = "OPPONENT_ID", nullable = false)
     private Integer opponentId;
 
 }

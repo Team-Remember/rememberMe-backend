@@ -18,25 +18,25 @@ import java.util.Map;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "\"TBL_CHAT\"")
+@Table(name = "TBL_CHAT")
 @TypeDef(name = "text", typeClass = JsonStringType.class)
 public class Chat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "\"CHAT_ID\"", nullable = false)
+    @Column(name = "CHAT_ID", nullable = false)
     private Integer id;
 
 //    @Type(type = "jsonb")
-//    @Column(name = "\"CHAT_CONTENTS\"", nullable = false, columnDefinition = "jsonb")
-    @Column(name = "\"CHAT_CONTENTS\"", nullable = false)
+//    @Column(name = "CHAT_CONTENTS", nullable = false, columnDefinition = "jsonb")
+    @Column(name = "CHAT_CONTENTS", nullable = false)
     @Type(type = "text")
     private List<Map<String,String>> data;
 
     @Column(name = "MEMBER_ID", nullable = false)
     private int memberId;
 
-    @Column(name = "opponent_id", nullable = false)
+    @Column(name = "OPPONENT_ID", nullable = false)
     private int opponentId;
 
 }
