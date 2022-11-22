@@ -11,8 +11,8 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 public class VoiceDTO {
-    private String userId;
-    private String weId;
+    private int userId;
+    private int weId;
     private MultipartFile voice;
 
 //    private MultipartFile form;

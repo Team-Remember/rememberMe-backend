@@ -6,6 +6,7 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioFileFormat;
@@ -16,6 +17,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Original Code
@@ -29,9 +31,9 @@ public class S3VoiceFile {
     @Value("mtvs-rememberme")
     private String bucket;
 
-    public String upload(byte[] voiceByteArray, String voiceName, String dirName) throws IOException, UnsupportedAudioFileException {
+    public String upload(MultipartFile voice, String voiceName, String dirName) throws IOException, UnsupportedAudioFileException {
 
-        ByteArrayInputStream input_stream= new ByteArrayInputStream(voiceByteArray);
+        ByteArrayInputStream input_stream= new ByteArrayInputStream(voice.getBytes());
 
         AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(input_stream);
 
