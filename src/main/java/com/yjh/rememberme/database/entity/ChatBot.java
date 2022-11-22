@@ -12,20 +12,20 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "\"TBL_CHAT_BOT\"")
+@Table(name = "TBL_CHAT_BOT")
 public class ChatBot {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "chat_bot_id")
+    @Column(name = "CHAT_BOT_ID")
     private Integer chatBotId;
 
     @NotNull
-    @Column(name = "chat_bot_date", columnDefinition = "DATE DEFAULT CURRENT_DATE")
+    @Column(name = "CHAT_BOT_DATE", columnDefinition = "DATE DEFAULT CURRENT_DATE")
     private Date chatBotDate;
 
     @NotNull
-    @Column(name = "member_id")
+    @Column(name = "MEMBER_ID")
     private Integer memberId;
 
 }

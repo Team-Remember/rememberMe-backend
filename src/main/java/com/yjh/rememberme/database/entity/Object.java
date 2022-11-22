@@ -11,23 +11,23 @@ import javax.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "\"TBL_OBJECT\"")
+@Table(name = "TBL_OBJECT")
 public class Object {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "\"OBJECT_ID\"", nullable = false)
+    @Column(name = "OBJECT_ID", nullable = false)
     private Integer id;
 
 
-    @Column(name = "\"OBJECT_PLACE_A\"")
+    @Column(name = "OBJECT_PLACE_A")
     private String objectPlaceA;
 
 
-    @Column(name = "\"OBJECT_PLACE_B\"")
+    @Column(name = "OBJECT_PLACE_B")
     private String objectPlaceB;
 
 
-    @Column(name = "\"OBJECT_PLACE_C\"")
+    @Column(name = "OBJECT_PLACE_C")
     private String objectPlaceC;
 
     @NotNull
