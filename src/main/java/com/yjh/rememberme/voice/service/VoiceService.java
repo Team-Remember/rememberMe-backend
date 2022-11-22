@@ -9,11 +9,15 @@ import com.yjh.rememberme.database.repository.VoiceRepository;
 import com.yjh.rememberme.voice.dto.VoiceDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -32,13 +36,13 @@ public class VoiceService {
     }
 
     @Transactional
-    public void postVoiceLog(String username, String weId) {
+    public void postVoiceLog(String username, String opponentNickname) {
         VoiceLog voiceLog = null;
         try {
             voiceLog = voiceLogRepository.save(new VoiceLog(0,
                     new java.sql.Date(new Date().getTime()),
                     memberRepository.findByUsername(username).getId(),
-                    memberRepository.findByUsername(weId).getId()
+                    memberRepository.findByUsername(opponentNickname).getId()
             ));
         } catch (Exception e){
             System.out.println(e);
@@ -57,9 +61,29 @@ public class VoiceService {
                 new java.sql.Date(new Date().getTime()),
                 voicePath,
                 voiceName,
-                memberRepository.findById(voiceDTO.getUserId()).getUsername(),
-                memberRepository.findById(voiceDTO.getWeId()).getUsername()
+                memberRepository.findByNickname(voiceDTO.getUserNickname()).getId(),
+                memberRepository.findByNickname(voiceDTO.getOpponentNickname()).getId()
         ));
         return voice;
+    }
+
+    public MultiValueMap<String, Object> addBody(VoiceDTO voiceDTO) {
+        MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+        body.add("voice", voiceDTO.getVoice().getResource());
+        body.add("userId", memberRepository.findByUsername(voiceDTO.getUserNickname()).getId());
+        body.add("weId", memberRepository.findByUsername(voiceDTO.getOpponentNickname()).getId());
+
+        return body;
+    }
+
+    public Map<String, Object> putMap(String username, String opponentname) {
+        Map<String, Object> map = new HashMap<>();
+        int userId = memberRepository.findByNickname(username).getId();
+        int weId = memberRepository.findByNickname(opponentname).getId();
+        map.put("userId",userId);
+        map.put("weId",weId);
+        map.put("voicePathList",voiceRepository.findAllByMemberIdAndOpponentId(userId,weId));
+
+        return map;
     }
 }
