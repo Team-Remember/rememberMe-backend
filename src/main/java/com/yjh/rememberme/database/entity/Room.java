@@ -21,14 +21,25 @@ public class Room {
     private String roomName;
 
     @Column(name = "ROOM_STATUS", nullable = false)
-    private String roomStatus;
+    @Enumerated(EnumType.STRING)
+    private RoomStatus roomStatus;
 
-    @Column(name ="ROOM_LIKES", nullable = false)
+    @Column(name ="ROOM_LIKES")
     private int roomLikes;
 
-    @Column(name = "ROOM_VIEWS", nullable = false)
+    @Column(name = "ROOM_VIEWS")
     private int roomViews;
 
     @Column(name = "MEMBER_ID", nullable = false)
     private int memberId;
+
+    public enum RoomStatus {
+        PUBLIC("public"), PRIVATE("private");
+
+        private final String text;
+        RoomStatus(String text) {this.text = text;}
+
+        public String getText() { return text; }
+
+    }
 }

@@ -1,5 +1,6 @@
 package com.yjh.rememberme.database.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
@@ -9,6 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "TBL_OBJECT")
@@ -18,17 +20,23 @@ public class Object {
     @Column(name = "OBJECT_ID", nullable = false)
     private Integer id;
 
+    @Column(name = "OBJECT_IDX", nullable = false)
+    private int idx;
 
-    @Column(name = "OBJECT_PLACE_A")
-    private String objectPlaceA;
+    @Column(name = "OBJECT_POSITION_X", nullable = false)
+    private Double positionX;
 
+    @Column(name = "OBJECT_POSITION_Y", nullable = false)
+    private Double positionY;
 
-    @Column(name = "OBJECT_PLACE_B")
-    private String objectPlaceB;
+    @Column(name = "OBJECT_POSITION_Z", nullable = false)
+    private Double positionZ;
 
+    @Column(name = "OBJECT_Y_ANGLE", nullable = false)
+    private Double yAngle;
 
-    @Column(name = "OBJECT_PLACE_C")
-    private String objectPlaceC;
+    @Column(name = "OBJECT_SCALE_VALUE", nullable = false)
+    private Double scaleValue;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
