@@ -25,7 +25,5 @@ public class Voice {
     private String voiceName;
     @Column(name = "MEMBER_ID", nullable = false)
     private int memberId;
-    @Column(name = "OPPONENT_ID", nullable = false)
-    private int opponentId;
 
 }
