@@ -40,7 +40,7 @@ jobs:
         cloud.aws.credentials.accessKey: ${{ secrets.AWS_ACCESS_KEY_ID }}
         cloud.aws.credentials.secretKey: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         cloud.aws.s3.bucket: ${{ secrets.AWS_S3_BUCKET }}
-        
+                
     - name: Build with Maven
       run: mvn -B package --file pom.xml
     ## 웹 이미지 빌드 및 도커허브에 push
