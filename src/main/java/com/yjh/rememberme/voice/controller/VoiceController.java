@@ -1,43 +1,38 @@
 package com.yjh.rememberme.voice.controller;
 
+import com.yjh.rememberme.Member.service.MemberService;
 import com.yjh.rememberme.chat.dto.ChatBotDTO;
 import com.yjh.rememberme.common.dto.ResponseMessage;
-import com.yjh.rememberme.database.entity.Chat;
 import com.yjh.rememberme.database.entity.Voice;
-import com.yjh.rememberme.database.repository.MemberRepository;
 import com.yjh.rememberme.voice.dto.PostVoiceDTO;
 import com.yjh.rememberme.voice.dto.VoiceDTO;
 import com.yjh.rememberme.voice.service.VoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.*;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponents;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.sound.sampled.UnsupportedAudioFileException;
-import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/voice")
 public class VoiceController {
     private final VoiceService voiceService;
-    private MemberRepository memberRepository;
+    private final MemberService memberService;
     private ChatBotDTO chatBotData;
 
     @Autowired
-    public VoiceController(VoiceService voiceService) {
+    public VoiceController(VoiceService voiceService, MemberService memberService) {
         this.voiceService = voiceService;
+        this.memberService = memberService;
     }
 
     //음성 봇 API
@@ -131,8 +126,11 @@ public class VoiceController {
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         Map<String, Object> responseMap = new HashMap<>();
 
-        int userId = memberRepository.findByNickname(voiceDTO.getUserNickname()).getId();
-        int weId = memberRepository.findByNickname(voiceDTO.getOpponentNickname()).getId();
+        int userId = memberService.findUserIdByNickname(voiceDTO);
+        int weId = memberService.findOpponentIdByNickname(voiceDTO);
+
+//        int userId = memberRepository.findByNickname(voiceDTO.getUserNickname()).getId();
+//        int weId = memberRepository.findByNickname(voiceDTO.getOpponentNickname()).getId();
 
         //stt 서버 호출 응답은 json
         ResponseEntity<?> resultMap = voiceService.callSTT(voiceDTO,userId, weId);
