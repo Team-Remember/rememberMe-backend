@@ -1,8 +1,10 @@
 package com.yjh.rememberme.voice.controller;
 
+import com.yjh.rememberme.chat.dto.ChatBotDTO;
 import com.yjh.rememberme.common.dto.ResponseMessage;
 import com.yjh.rememberme.database.entity.Chat;
 import com.yjh.rememberme.database.entity.Voice;
+import com.yjh.rememberme.database.repository.MemberRepository;
 import com.yjh.rememberme.voice.dto.PostVoiceDTO;
 import com.yjh.rememberme.voice.dto.VoiceDTO;
 import com.yjh.rememberme.voice.service.VoiceService;
@@ -30,13 +32,15 @@ import java.util.Map;
 @RequestMapping("/voice")
 public class VoiceController {
     private final VoiceService voiceService;
+    private MemberRepository memberRepository;
+    private ChatBotDTO chatBotData;
 
     @Autowired
     public VoiceController(VoiceService voiceService) {
         this.voiceService = voiceService;
     }
 
-    //음성 복원 봇 API
+    //음성 봇 API
     @PostMapping("/{username}")
     public ResponseEntity<?> postVoiceChatBot(@PathVariable String username , VoiceDTO voiceDTO) throws IOException {
         System.out.println(voiceDTO);
@@ -118,4 +122,45 @@ public class VoiceController {
                 .headers(headers)
                 .body(new ResponseMessage(201, "getVoice succeed", responseMap));
     }
+
+    //음성 복원 API
+    @PostMapping("/{username}/restore")
+    public ResponseEntity<?> restoreVoiceChatBot(@PathVariable String username , VoiceDTO voiceDTO) throws IOException {
+        System.out.println(voiceDTO);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+        Map<String, Object> responseMap = new HashMap<>();
+
+        int userId = memberRepository.findByNickname(voiceDTO.getUserNickname()).getId();
+        int weId = memberRepository.findByNickname(voiceDTO.getOpponentNickname()).getId();
+
+        //stt 서버 호출 응답은 json
+        ResponseEntity<?> resultMap = voiceService.callSTT(voiceDTO,userId, weId);
+        System.out.println("resultMap = " + resultMap);
+
+        //문자 챗봇 호출 응답은 json
+        ResponseEntity<?> resultMap2 = voiceService.callChatBot(resultMap, userId, weId);
+        System.out.println("resultMap2 = " + resultMap2);
+
+        //tts 호출 응답은 오디오 파일 XR에 json형태로 보냄 (body에 오디오파일이 바이츠?로 들어있음)
+        ResponseEntity<?> resultMap3 = voiceService.callTTS(resultMap2, userId, weId);
+        System.out.println("resultMap3 = " + resultMap3);
+
+
+        if(resultMap3.getBody() == null){
+            return ResponseEntity
+                    .badRequest()
+                    .headers(headers)
+                    .body(new ResponseMessage(400, "postVoiceChatBot failed", responseMap));
+        }
+
+        responseMap.put("voice",resultMap3);
+
+        return ResponseEntity
+                .created(URI.create("/"+username))
+                .headers(headers)
+                .body(new ResponseMessage(201,"postVoiceChatBot succeed",responseMap));
+    }
 }
+
+
