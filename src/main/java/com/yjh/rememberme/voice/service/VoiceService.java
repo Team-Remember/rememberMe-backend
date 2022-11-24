@@ -78,7 +78,7 @@ public class VoiceService {
 
     public Map<String, Object> putMap(String username) {
         Map<String, Object> map = new HashMap<>();
-        int userId = memberRepository.findByNickname(username).getId();
+        int userId = memberRepository.findByUsername(username).getId();
         map.put("userId",userId);
         map.put("voicePathList",voiceRepository.findAllByMemberId(userId));
 
