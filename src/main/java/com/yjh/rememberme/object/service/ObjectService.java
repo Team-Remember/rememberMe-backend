@@ -46,4 +46,11 @@ public class ObjectService {
     public void deleteObjects(int roomid) {
         roomRepository.deleteById(roomid);
     }
+
+    public List<Object> getObjects(int roomid) {
+
+        List<Object> objects = objectRepository.findAllByRoomId(roomid);
+
+        return objects;
+    }
 }
