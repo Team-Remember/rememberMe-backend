@@ -5,6 +5,7 @@ import com.yjh.rememberme.Member.dto.MatchIdDTO;
 import com.yjh.rememberme.Member.dto.MatchPasswordDTO;
 import com.yjh.rememberme.database.entity.Member;
 import com.yjh.rememberme.database.repository.MemberRepository;
+import com.yjh.rememberme.voice.dto.VoiceDTO;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -97,6 +98,14 @@ public class MemberService {
         foundMember.setPassword(passwordEncoder.encode(newPassword));
         System.out.println("비밀번호가 변경되었습니다.");
 
+    }
+
+    public int findUserIdByNickname(VoiceDTO voiceDTO) {
+        return memberRepository.findByNickname(voiceDTO.getUserNickname()).getId();
+    }
+
+    public int findOpponentIdByNickname(VoiceDTO voiceDTO) {
+        return memberRepository.findByNickname(voiceDTO.getOpponentNickname()).getId();
     }
 
 //    public void postUserByAdmin(RegistUserDTO registUserDTO) {
