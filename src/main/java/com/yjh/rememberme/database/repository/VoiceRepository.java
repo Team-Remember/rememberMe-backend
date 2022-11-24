@@ -8,7 +8,5 @@ import java.util.List;
 import java.util.Optional;
 
 public interface VoiceRepository extends JpaRepository<Voice, Integer> {
-
-    List<VoicePath> findAllByMemberIdAndOpponentId(int memberId, int opponentId);
-
+    List<VoicePath> findAllByMemberId(int userId);
 }

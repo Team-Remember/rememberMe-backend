@@ -6,6 +6,7 @@ import com.yjh.rememberme.database.entity.VoiceLog;
 import com.yjh.rememberme.database.repository.MemberRepository;
 import com.yjh.rememberme.database.repository.VoiceLogRepository;
 import com.yjh.rememberme.database.repository.VoiceRepository;
+import com.yjh.rememberme.voice.dto.PostVoiceDTO;
 import com.yjh.rememberme.voice.dto.VoiceDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,18 +52,17 @@ public class VoiceService {
 
     }
 
-    public Voice postVoice(String username, VoiceDTO voiceDTO) throws UnsupportedAudioFileException, IOException {
+    public Voice postVoice(String username, PostVoiceDTO postVoiceDTO) throws UnsupportedAudioFileException, IOException {
         Voice voice = null;
         String voiceName = UUID.randomUUID() + "-voice_" + memberRepository.findByUsername(username).getId() + ".wav";
-        String voicePath = s3VoiceFile.upload(voiceDTO.getVoice(), voiceName, "voice");
+        String voicePath = s3VoiceFile.upload(postVoiceDTO.getVoice(), voiceName, "voice");
 
         voice = voiceRepository.save(new Voice(
                 0,
                 new java.sql.Date(new Date().getTime()),
                 voicePath,
                 voiceName,
-                memberRepository.findByNickname(voiceDTO.getUserNickname()).getId(),
-                memberRepository.findByNickname(voiceDTO.getOpponentNickname()).getId()
+                memberRepository.findByNickname(postVoiceDTO.getUserNickname()).getId()
         ));
         return voice;
     }
@@ -76,13 +76,11 @@ public class VoiceService {
         return body;
     }
 
-    public Map<String, Object> putMap(String username, String opponentname) {
+    public Map<String, Object> putMap(String username) {
         Map<String, Object> map = new HashMap<>();
         int userId = memberRepository.findByNickname(username).getId();
-        int weId = memberRepository.findByNickname(opponentname).getId();
         map.put("userId",userId);
-        map.put("weId",weId);
-        map.put("voicePathList",voiceRepository.findAllByMemberIdAndOpponentId(userId,weId));
+        map.put("voicePathList",voiceRepository.findAllByMemberId(userId));
 
         return map;
     }

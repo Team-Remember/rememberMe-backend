@@ -3,6 +3,7 @@ package com.yjh.rememberme.voice.controller;
 import com.yjh.rememberme.common.dto.ResponseMessage;
 import com.yjh.rememberme.database.entity.Chat;
 import com.yjh.rememberme.database.entity.Voice;
+import com.yjh.rememberme.voice.dto.PostVoiceDTO;
 import com.yjh.rememberme.voice.dto.VoiceDTO;
 import com.yjh.rememberme.voice.service.VoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,12 +81,12 @@ public class VoiceController {
     }
     //음성채팅 업로드
     @PostMapping("/postvoice/{username}")
-    public ResponseEntity<?> postVoice(@PathVariable String username , VoiceDTO voiceDTO) throws UnsupportedAudioFileException, IOException {
+    public ResponseEntity<?> postVoice(@PathVariable String username , PostVoiceDTO postVoiceDTO) throws UnsupportedAudioFileException, IOException {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         Map<String, Object> responseMap = new HashMap<>();
         Voice voice = null;
-        voice = voiceService.postVoice(username, voiceDTO);
+        voice = voiceService.postVoice(username, postVoiceDTO);
 
         responseMap.put("voiceName",voice.getVoiceName());
 
@@ -97,12 +98,12 @@ public class VoiceController {
 
     //음성복원
     @GetMapping("/")
-    public ResponseEntity<?> getVoice(@RequestParam("username") String username, @RequestParam("opponentname") String opponentname) {
+    public ResponseEntity<?> getVoice(@RequestParam("username") String username) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         Map<String, Object> responseMap = new HashMap<>();
 
-        Map<String, Object> map = voiceService.putMap(username, opponentname);
+        Map<String, Object> map = voiceService.putMap(username);
 
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<?> requestEntity = new HttpEntity<>(map, headers);
