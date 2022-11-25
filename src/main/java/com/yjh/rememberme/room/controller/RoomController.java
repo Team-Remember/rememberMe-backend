@@ -36,6 +36,38 @@ public class RoomController {
                 .headers(headers)
                 .body(new ResponseMessage(201,"postRoom Succeed", responseMap));
     }
+    // 방 불러오기 1
+    @GetMapping("/withroomid")
+    public ResponseEntity<?> getRoomByRoomId(@RequestParam("roomid") int roomid) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+        Map<String, Object> responseMap = new HashMap<>();
+
+        Room room = roomService.getRoomByRoomId(roomid);
+
+        responseMap.put("room",room);
+
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .body(new ResponseMessage(201, "postRoom Succeed", responseMap));
+    }
+    // 방 불러오기
+    @GetMapping("/withroomname")
+    public ResponseEntity<?> getRoomByRoomIdAndMemberId(@RequestParam("roomname") String roomname, @RequestParam("memberid") int memberid) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+        Map<String, Object> responseMap = new HashMap<>();
+
+        Room room = roomService.getRoomByRoomNameAndMemberId(roomname,memberid);
+
+        responseMap.put("room",room);
+
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .body(new ResponseMessage(201, "postRoom Succeed", responseMap));
+    }
     // Private방으로 바꾸기
     @PatchMapping("/private")
     public ResponseEntity<?> patchRoomPrivate(@RequestParam("username") String username, @RequestParam("roomname") String roomname) {

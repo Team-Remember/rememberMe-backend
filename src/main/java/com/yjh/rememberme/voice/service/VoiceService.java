@@ -9,14 +9,13 @@ import com.yjh.rememberme.database.repository.VoiceRepository;
 import com.yjh.rememberme.voice.dto.PostVoiceDTO;
 import com.yjh.rememberme.voice.dto.VoiceDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.transaction.Transactional;
@@ -90,7 +89,6 @@ public class VoiceService {
 
     public ResponseEntity<?> callSTT(VoiceDTO voiceDTO, int userId, int weId) {
         HttpHeaders headers2 = new HttpHeaders();
-        headers2.setAccept(Arrays.asList(MediaType.APPLICATION_OCTET_STREAM));
         headers2.setContentType(MediaType.MULTIPART_FORM_DATA);
 
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
@@ -101,51 +99,77 @@ public class VoiceService {
 
         RestTemplate restTemplate = new RestTemplate();
 
-        String url = "ai stt 서버 url";
+        String url = "https://a14d-119-194-163-123.jp.ngrok.io/stt";
         System.out.println("body = " + body);
 
-        ResponseEntity<?> resultMap = restTemplate.postForEntity(url, requestEntity, byte[].class);
+        ResponseEntity<?> resultMap = restTemplate.postForEntity(url, requestEntity, Map.class);
 
         return resultMap;
     }
 
-    public ResponseEntity<?> callChatBot(ResponseEntity<?> resultMap, int userId, int weId) {
+    public ResponseEntity<?> callChatBot(Object resultMap, int userId, int weId) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         Map<String, Object> body = new HashMap<>();
 
-        body.put("data", resultMap);
-        body.put("userId", userId);
-        body.put("weId", weId);
+//        body.put("chatRequest", resultMap);
+//        body.put("memberId", userId);
+//        body.put("weId", weId);
 
-        HttpEntity<?> requestEntity = new HttpEntity<>(body, headers);
+//        HttpEntity<?> requestEntity = new HttpEntity<>(body, headers);
 
         RestTemplate restTemplate = new RestTemplate();
 
-        String url = "https://9e5a-119-194-163-123.jp.ngrok.io/chat_bot";
+        String url = "http://34.64.44.107:8000/chat_bot";
 
-        ResponseEntity<?> resultMap2 = restTemplate.postForEntity(url, requestEntity, Map.class);
+        HttpEntity<?> entity = new HttpEntity<>(headers);
+
+        UriComponents uri = UriComponentsBuilder.fromHttpUrl(url)
+                .queryParam("chatRequest", resultMap.toString().split("=")[1].replace("}",""))
+                .queryParam("memberId", userId)
+                .queryParam("weId", weId)
+                .build();
+
+
+        ResponseEntity<?> resultMap2 = restTemplate.exchange(uri.toString(), HttpMethod.GET, entity, Map.class);
+//        ResponseEntity<?> resultMap2 = restTemplate.postForEntity(url, requestEntity, Map.class);
+
 
         return resultMap2;
     }
 
-    public ResponseEntity<?> callTTS(ResponseEntity<?> resultMap2, int userId, int weId) {
+    public ResponseEntity<?> callTTS(Object resultMap2, int userId, int weId) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_OCTET_STREAM));
         Map<String, Object> body = new HashMap<>();
 
-        body.put("data", resultMap2);
-        body.put("userId", userId);
-        body.put("weId", weId);
+//        body.put("text", resultMap2.toString().split("=")[1].split(",")[0]);
+//        body.put("userId", userId);
+//        body.put("weId", weId);
+//        body.put("filtering",resultMap2.toString().split("=")[2].replace("}",""));
+//        System.out.println("body = " + body);
 
-        HttpEntity<?> requestEntity = new HttpEntity<>(body, headers);
+//        HttpEntity<?> requestEntity = new HttpEntity<>(body, headers);
 
         RestTemplate restTemplate = new RestTemplate();
 
-        String url = "https://9e5a-119-194-163-123.jp.ngrok.io/chat_bot";
+//        String url = "https://a14d-119-194-163-123.jp.ngrok.io/tts";
 
-        ResponseEntity<?> resultMap3 = restTemplate.postForEntity(url, requestEntity, byte[].class);
+//        RestTemplate restTemplate = new RestTemplate();
+
+        String url = "https://a14d-119-194-163-123.jp.ngrok.io/tts";
+
+        HttpEntity<?> entity = new HttpEntity<>(headers);
+
+        UriComponents uri = UriComponentsBuilder.fromHttpUrl(url)
+                .queryParam("text", resultMap2.toString().split("=")[1].split(",")[0])
+                .queryParam("userId", userId)
+                .queryParam("weId", weId)
+                .queryParam("filtering", resultMap2.toString().split("=")[2].replace("}",""))
+                .build();
+        ResponseEntity<?> resultMap3 = restTemplate.exchange(uri.toString(), HttpMethod.POST, entity, byte[].class);
+//        ResponseEntity<?> resultMap3 = restTemplate.postForEntity(url, requestEntity, byte[].class);
 
         return resultMap3;
     }
