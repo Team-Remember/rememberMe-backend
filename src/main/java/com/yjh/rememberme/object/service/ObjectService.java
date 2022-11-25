@@ -4,6 +4,7 @@ import com.yjh.rememberme.database.entity.Object;
 import com.yjh.rememberme.database.repository.MemberRepository;
 import com.yjh.rememberme.database.repository.ObjectRepository;
 import com.yjh.rememberme.database.repository.RoomRepository;
+import com.yjh.rememberme.database.repository.dto.GetObjectDTO;
 import com.yjh.rememberme.object.dto.DatasDTO;
 import com.yjh.rememberme.object.dto.ObjectDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +34,8 @@ public class ObjectService {
             objectRepository.save(new Object(
                     0,
                     datum.getIdx(),
-                    datum.getPosition().getPositionX(),
-                    datum.getPosition().getPositionY(),
-                    datum.getPosition().getPositionZ(),
-                    datum.getYAngler(),
+                    datum.getPosition(),
+                    datum.getAngle(),
                     datum.getScaleValue(),
                     roomRepository.findById(roomid)
             ));
@@ -44,12 +43,12 @@ public class ObjectService {
     }
     @Transactional
     public void deleteObjects(int roomid) {
-        roomRepository.deleteById(roomid);
+        objectRepository.deleteByRoomId(roomid);
     }
 
-    public List<Object> getObjects(int roomid) {
+    public List<GetObjectDTO> getObjects(int roomid) {
 
-        List<Object> objects = objectRepository.findAllByRoomId(roomid);
+        List<GetObjectDTO> objects = objectRepository.findAllByRoomId(roomid);
 
         return objects;
     }
