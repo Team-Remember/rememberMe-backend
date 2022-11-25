@@ -52,7 +52,7 @@ public class RoomController {
                 .headers(headers)
                 .body(new ResponseMessage(201, "postRoom Succeed", responseMap));
     }
-    // 방 불러오기
+    // 방 불러오기 2
     @GetMapping("/withroomname")
     public ResponseEntity<?> getRoomByRoomIdAndMemberId(@RequestParam("roomname") String roomname, @RequestParam("memberid") int memberid) {
         HttpHeaders headers = new HttpHeaders();

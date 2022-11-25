@@ -26,7 +26,7 @@ public class RoomService {
                 Room.RoomStatus.PUBLIC,
                 0,
                 0,
-                memberRepository.findByNickname(username).getId()
+                memberRepository.findByUsername(username).getId()
         ));
         }catch (Exception e) {
             System.out.println(e);
