@@ -48,4 +48,14 @@ public class RoomService {
         roomRepository.save(roomStatus2);
         return roomStatus2.getRoomStatus();
     }
+
+    @Transactional
+    public Room getRoomByRoomId(int roomid) {
+        return roomRepository.findById(roomid);
+    }
+
+    @Transactional
+    public Room getRoomByRoomNameAndMemberId(String roomname, int memberId) {
+        return roomRepository.findByRoomNameAndMemberId(roomname, memberId);
+    }
 }
