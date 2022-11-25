@@ -87,7 +87,7 @@ public class VoiceController {
         Voice voice = null;
         voice = voiceService.postVoice(username, postVoiceDTO);
 
-        responseMap.put("voiceName",voice.getVoiceName());
+        responseMap.put("voicePath",voice.getVoicePath());
 
         return ResponseEntity
                 .created(URI.create("/" + username))
