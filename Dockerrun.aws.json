@@ -4,10 +4,6 @@
     "Name": "pjhhs021/rememberme-backend",
     "Update": "true"
   },
-  "Authentication": {
-    "Bucket": "rememberme-docker",
-    "Key": "index.docker.io/config.json"
-  },
   "Ports": [
     {
       "ContainerPort": 8001,
