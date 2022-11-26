@@ -129,6 +129,8 @@ public class VoiceController {
         int userId = memberService.findUserIdByNickname(voiceDTO);
         int weId = memberService.findOpponentIdByNickname(voiceDTO);
 
+        voiceService.postVoiceLog(username, voiceDTO.getOpponentNickname());
+
 //        int userId = memberRepository.findByNickname(voiceDTO.getUserNickname()).getId();
 //        int weId = memberRepository.findByNickname(voiceDTO.getOpponentNickname()).getId();
 
