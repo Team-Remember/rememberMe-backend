@@ -45,7 +45,7 @@ public class VoiceService {
             voiceLog = voiceLogRepository.save(new VoiceLog(0,
                     new java.sql.Date(new Date().getTime()),
                     memberRepository.findByUsername(username).getId(),
-                    memberRepository.findByUsername(opponentNickname).getId()
+                    memberRepository.findByNickname(opponentNickname).getId()
             ));
         } catch (Exception e){
             System.out.println(e);
@@ -99,7 +99,7 @@ public class VoiceService {
 
         RestTemplate restTemplate = new RestTemplate();
 
-        String url = "https://a14d-119-194-163-123.jp.ngrok.io/stt";
+        String url = "http://34.64.138.111:8000/stt";
         System.out.println("body = " + body);
 
         ResponseEntity<?> resultMap = restTemplate.postForEntity(url, requestEntity, Map.class);
@@ -158,7 +158,7 @@ public class VoiceService {
 
 //        RestTemplate restTemplate = new RestTemplate();
 
-        String url = "https://a14d-119-194-163-123.jp.ngrok.io/tts";
+        String url = "http://34.64.138.111:8000/tts";
 
         HttpEntity<?> entity = new HttpEntity<>(headers);
 
