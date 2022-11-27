@@ -1,5 +1,6 @@
 package com.yjh.rememberme.database.entity;
 
+import com.yjh.rememberme.database.vo.Position;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,22 +21,16 @@ public class Object {
     @Column(name = "OBJECT_ID", nullable = false)
     private Integer id;
 
-    @Column(name = "OBJECT_IDX", nullable = false)
+    @Column(name = "OBJECT_IDX")
     private int idx;
 
-    @Column(name = "OBJECT_POSITION_X", nullable = false)
-    private Double positionX;
+    @Embedded
+    private Position position;
 
-    @Column(name = "OBJECT_POSITION_Y", nullable = false)
-    private Double positionY;
+    @Column(name = "OBJECT_ANGLE")
+    private Double angle;
 
-    @Column(name = "OBJECT_POSITION_Z", nullable = false)
-    private Double positionZ;
-
-    @Column(name = "OBJECT_Y_ANGLE", nullable = false)
-    private Double yAngle;
-
-    @Column(name = "OBJECT_SCALE_VALUE", nullable = false)
+    @Column(name = "OBJECT_SCALE_VALUE")
     private Double scaleValue;
 
     @NotNull

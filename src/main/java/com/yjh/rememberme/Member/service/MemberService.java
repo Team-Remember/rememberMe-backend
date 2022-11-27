@@ -21,6 +21,7 @@ public class MemberService {
         this.memberRepository = memberRepository;
         this.passwordEncoder = passwordEncoder;
     }
+
     @Transactional
     public String findNicknameByUsername(String username) {
         String nickname = null;

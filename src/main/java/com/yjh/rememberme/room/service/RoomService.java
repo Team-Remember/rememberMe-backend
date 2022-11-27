@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class RoomService {
@@ -26,7 +27,8 @@ public class RoomService {
                 Room.RoomStatus.PUBLIC,
                 0,
                 0,
-                memberRepository.findByNickname(username).getId()
+                memberRepository.findByUsername(username).getId(),
+                memberRepository.findByUsername(username).getNickname()
         ));
         }catch (Exception e) {
             System.out.println(e);
@@ -55,7 +57,18 @@ public class RoomService {
     }
 
     @Transactional
-    public Room getRoomByRoomNameAndMemberId(String roomname, int memberId) {
-        return roomRepository.findByRoomNameAndMemberId(roomname, memberId);
+    public Room getRoomByRoomName(String roomname) {
+        return roomRepository.findByRoomName(roomname);
     }
+
+    @Transactional
+    public List<Room> getRoomList() {
+        return roomRepository.findAll();
+    }
+
+//    public int addRoomViews(int roomid) {
+//        Room room = roomRepository.findById(roomid);
+//        int views =
+//        return views;
+//    }
 }

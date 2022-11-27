@@ -6,6 +6,7 @@ import com.yjh.rememberme.auth.dto.UsernameDTO;
 import com.yjh.rememberme.auth.service.DupCheckService;
 import com.yjh.rememberme.common.dto.ResponseMessage;
 import com.yjh.rememberme.database.repository.MemberRepository;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -30,7 +31,7 @@ public class DupCheckController {
     public DupCheckController(DupCheckService dupCheckService) {
         this.dupCheckService = dupCheckService;
     }
-
+    @Operation(description = "아이디 중복 확인")
     @PostMapping("username")
     public ResponseEntity<?> getUserNameIsDuplicated(@RequestBody UsernameDTO usernameDTO) {
         System.out.println(usernameDTO.getUsername());
@@ -51,7 +52,7 @@ public class DupCheckController {
                     .body(new ResponseMessage(200, "username is available", responseMap));
         }
     }
-
+    @Operation(description = "이메일 중복확인")
     @PostMapping("email")
     public ResponseEntity<?> getEmailIsDuplicated(@RequestBody EmailDTO emailDTO){
         System.out.println(emailDTO.getEmail());
@@ -72,9 +73,9 @@ public class DupCheckController {
                     .body(new ResponseMessage(200, "email is available", responseMap));
         }
     }
-
+    @Operation(description = "닉네임 중복확인")
     @PostMapping("nickname")
-    public ResponseEntity<?> getEmailIsDuplicated(@RequestBody NicknameDTO nicknameDTO){
+    public ResponseEntity<?> getNicknameIsDuplicated(@RequestBody NicknameDTO nicknameDTO){
         System.out.println(nicknameDTO.getNickname());
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));

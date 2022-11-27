@@ -104,6 +104,6 @@ jobs:
           region: ${{ secrets.AWS_REGION }}
           environment_name: ${{ secrets.AWS_EB_ENV_NAME }}
           application_name: ${{ secrets.AWS_EB_APP_NAME }}
-          version_label: thehabit-${{steps.current-time.outputs.formattedTime}}
+          version_label: rememberme-${{steps.current-time.outputs.formattedTime}}
           deployment_package: deploy/deploy.zip
           wait_for_environment_recovery: 200

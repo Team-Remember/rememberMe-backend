@@ -3,6 +3,7 @@ package com.yjh.rememberme.auth.controller;
 
 import com.yjh.rememberme.auth.dto.EmailDTO;
 import com.yjh.rememberme.auth.service.MailService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +27,6 @@ public class MailController {
     public MailController(MailService mailService) {
         this.mailService = mailService;
     }
-
     @PostMapping("/match")
     public int sendEmail(@RequestBody EmailDTO toEmail) throws MessagingException {
         System.out.println(toEmail.getEmail() + "로 메일을 발송합니다.");
