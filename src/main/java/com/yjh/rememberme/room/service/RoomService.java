@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class RoomService {
@@ -55,7 +56,12 @@ public class RoomService {
     }
 
     @Transactional
-    public Room getRoomByRoomNameAndMemberId(String roomname, int memberId) {
-        return roomRepository.findByRoomNameAndMemberId(roomname, memberId);
+    public Room getRoomByRoomName(String roomname) {
+        return roomRepository.findByRoomName(roomname);
+    }
+
+    @Transactional
+    public List<Room> getRoomList() {
+        return roomRepository.findAll();
     }
 }

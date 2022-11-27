@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.nio.charset.Charset;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -36,6 +37,21 @@ public class RoomController {
                 .headers(headers)
                 .body(new ResponseMessage(201,"postRoom Succeed", responseMap));
     }
+    @GetMapping("/roomlist")
+    public ResponseEntity<?> getRoomList() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+        Map<String, Object> responseMap = new HashMap<>();
+
+        List<Room> roomList = roomService.getRoomList();
+
+        responseMap.put("roomList",roomList);
+
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .body(new ResponseMessage(201, "postRoom Succeed", responseMap));
+    }
     // 방 불러오기 1
     @GetMapping("/withroomid")
     public ResponseEntity<?> getRoomByRoomId(@RequestParam("roomid") int roomid) {
@@ -54,12 +70,12 @@ public class RoomController {
     }
     // 방 불러오기 2
     @GetMapping("/withroomname")
-    public ResponseEntity<?> getRoomByRoomIdAndMemberId(@RequestParam("roomname") String roomname, @RequestParam("memberid") int memberid) {
+    public ResponseEntity<?> getRoomByRoomIdAndMemberId(@RequestParam("roomname") String roomname) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         Map<String, Object> responseMap = new HashMap<>();
 
-        Room room = roomService.getRoomByRoomNameAndMemberId(roomname,memberid);
+        Room room = roomService.getRoomByRoomName(roomname);
 
         responseMap.put("room",room);
 
