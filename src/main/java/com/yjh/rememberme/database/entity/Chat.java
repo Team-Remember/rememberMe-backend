@@ -1,12 +1,7 @@
 package com.yjh.rememberme.database.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.vladmihalcea.hibernate.type.array.ListArrayType;
 import com.vladmihalcea.hibernate.type.json.JsonStringType;
 import lombok.*;
-import net.minidev.json.JSONArray;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 

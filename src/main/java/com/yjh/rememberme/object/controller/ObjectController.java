@@ -1,11 +1,10 @@
 package com.yjh.rememberme.object.controller;
 
 import com.yjh.rememberme.common.dto.ResponseMessage;
-import com.yjh.rememberme.database.entity.Object;
 import com.yjh.rememberme.database.repository.dto.GetObjectDTO;
 import com.yjh.rememberme.object.dto.DatasDTO;
-import com.yjh.rememberme.object.dto.ObjectDTO;
 import com.yjh.rememberme.object.service.ObjectService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -28,7 +27,7 @@ public class ObjectController {
         this.objectService = objectService;
     }
 
-    //오브젝트 등록
+    @Operation(description = "오브젝트 등록")
     @PostMapping("/{roomid}")
     public ResponseEntity<?> postObjects(@PathVariable int roomid, @RequestBody DatasDTO datas) {
         HttpHeaders headers = new HttpHeaders();
@@ -45,7 +44,8 @@ public class ObjectController {
                 .headers(headers)
                 .body(new ResponseMessage(201,"postObjects Succeed", responseMap));
     }
-    // 오브젝트 불러오기
+
+    @Operation(description = "오브젝트 불러오기")
     @GetMapping("/{roomid}")
     public ResponseEntity<?> getObjects(@PathVariable int roomid) {
         HttpHeaders headers = new HttpHeaders();

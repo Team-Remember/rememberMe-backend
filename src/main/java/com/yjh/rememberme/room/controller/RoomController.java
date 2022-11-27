@@ -3,6 +3,7 @@ package com.yjh.rememberme.room.controller;
 import com.yjh.rememberme.common.dto.ResponseMessage;
 import com.yjh.rememberme.database.entity.Room;
 import com.yjh.rememberme.room.service.RoomService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -22,7 +23,8 @@ public class RoomController {
     public RoomController(RoomService roomService) {
         this.roomService = roomService;
     }
-    // 방생성
+
+    @Operation(description = "방 생성")
     @GetMapping
     public ResponseEntity<?> createRoom(@RequestParam("username") String username, @RequestParam("roomname") String roomname) {
         HttpHeaders headers = new HttpHeaders();
@@ -37,6 +39,7 @@ public class RoomController {
                 .headers(headers)
                 .body(new ResponseMessage(201,"postRoom Succeed", responseMap));
     }
+    @Operation(description = "방 리스트 불러오기")
     @GetMapping("/roomlist")
     public ResponseEntity<?> getRoomList() {
         HttpHeaders headers = new HttpHeaders();
@@ -50,9 +53,9 @@ public class RoomController {
         return ResponseEntity
                 .ok()
                 .headers(headers)
-                .body(new ResponseMessage(201, "postRoom Succeed", responseMap));
+                .body(responseMap);
     }
-    // 방 불러오기 1
+    @Operation(description = "방번호로 방불러오기")
     @GetMapping("/withroomid")
     public ResponseEntity<?> getRoomByRoomId(@RequestParam("roomid") int roomid) {
         HttpHeaders headers = new HttpHeaders();
@@ -68,7 +71,7 @@ public class RoomController {
                 .headers(headers)
                 .body(new ResponseMessage(201, "postRoom Succeed", responseMap));
     }
-    // 방 불러오기 2
+    @Operation(description = "방이름으로 방 불러오기")
     @GetMapping("/withroomname")
     public ResponseEntity<?> getRoomByRoomIdAndMemberId(@RequestParam("roomname") String roomname) {
         HttpHeaders headers = new HttpHeaders();
@@ -84,7 +87,7 @@ public class RoomController {
                 .headers(headers)
                 .body(new ResponseMessage(201, "postRoom Succeed", responseMap));
     }
-    // Private방으로 바꾸기
+    @Operation(description = "private 방으로 바꾸기")
     @PatchMapping("/private")
     public ResponseEntity<?> patchRoomPrivate(@RequestParam("username") String username, @RequestParam("roomname") String roomname) {
         HttpHeaders headers = new HttpHeaders();
@@ -99,7 +102,7 @@ public class RoomController {
                 .headers(headers)
                 .body(new ResponseMessage(201,"patchRoomPrivate Succeed", responseMap));
     }
-    // Public방으로 바꾸기
+    @Operation(description = "Public 방으로 바꾸기")
     @PatchMapping("/public")
     public ResponseEntity<?> patchRoomPublic(@RequestParam("username") String username, @RequestParam("roomname") String roomname) {
         HttpHeaders headers = new HttpHeaders();

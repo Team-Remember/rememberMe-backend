@@ -2,6 +2,7 @@ package com.yjh.rememberme.admin.controller;
 
 import com.yjh.rememberme.admin.service.AdminChatBotService;
 import com.yjh.rememberme.common.dto.ResponseMessage;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class AdminChatBotController {
     public AdminChatBotController(AdminChatBotService adminChatBotService) {
         this.adminChatBotService = adminChatBotService;
     }
-
+    @Operation(description = "챗봇 요청 횟수")
     @GetMapping
     public ResponseEntity<?> countChatBotRequest(){
 

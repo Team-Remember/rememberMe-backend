@@ -16,8 +16,6 @@ public class ChatBotDTO {
     @NotNull
     private String weNickname;
 
-
-
     public ChatBotDTO(){}
 
     public ChatBotDTO(String chatRequest, String memberNickname, String weNickname) {
