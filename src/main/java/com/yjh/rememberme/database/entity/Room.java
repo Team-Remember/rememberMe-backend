@@ -33,6 +33,9 @@ public class Room {
     @Column(name = "MEMBER_ID", nullable = false)
     private int memberId;
 
+    @Column(name = "MEMBER_NICKNAME", nullable = false)
+    private String memberNickname;
+
     public enum RoomStatus {
         PUBLIC("public"), PRIVATE("private");
 

@@ -27,7 +27,8 @@ public class RoomService {
                 Room.RoomStatus.PUBLIC,
                 0,
                 0,
-                memberRepository.findByUsername(username).getId()
+                memberRepository.findByUsername(username).getId(),
+                memberRepository.findByUsername(username).getNickname()
         ));
         }catch (Exception e) {
             System.out.println(e);
@@ -64,4 +65,10 @@ public class RoomService {
     public List<Room> getRoomList() {
         return roomRepository.findAll();
     }
+
+//    public int addRoomViews(int roomid) {
+//        Room room = roomRepository.findById(roomid);
+//        int views =
+//        return views;
+//    }
 }

@@ -63,6 +63,7 @@ public class RoomController {
         Map<String, Object> responseMap = new HashMap<>();
 
         Room room = roomService.getRoomByRoomId(roomid);
+//        int views = roomService.addRoomViews(roomid);
 
         responseMap.put("room",room);
 
