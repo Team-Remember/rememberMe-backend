@@ -6,12 +6,11 @@ import com.yjh.rememberme.Member.dto.PasswordDTO;
 import com.yjh.rememberme.Member.service.MemberService;
 import com.yjh.rememberme.auth.service.MailService;
 import com.yjh.rememberme.common.dto.ResponseMessage;
-import com.yjh.rememberme.database.repository.MemberRepository;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
@@ -35,7 +34,6 @@ public class MemberController {
         this.memberService = memberService;
         this.mailService = mailService;
     }
-
     @PostMapping("match/id")
     public void matchUsername(@RequestBody MatchIdDTO matchIdDTO) throws MessagingException {
 

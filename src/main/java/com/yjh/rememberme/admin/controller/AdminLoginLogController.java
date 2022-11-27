@@ -3,6 +3,7 @@ package com.yjh.rememberme.admin.controller;
 import com.yjh.rememberme.admin.service.AdminLoginLogService;
 import com.yjh.rememberme.common.dto.ResponseMessage;
 import com.yjh.rememberme.database.entity.LoginLog;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -27,8 +28,7 @@ public class AdminLoginLogController {
     public AdminLoginLogController(AdminLoginLogService adminLoginLogService) {
         this.adminLoginLogService = adminLoginLogService;
     }
-
-    //멤버아이디로 로그인로그 가져오기
+    @Operation(description = "멤버아이디로 로그인로그 가져오기")
     @GetMapping("{memberId}")
     public ResponseEntity<?> findAllLoginLog(@PathVariable Integer memberId){
 
@@ -45,8 +45,7 @@ public class AdminLoginLogController {
                 .headers(headers)
                 .body(new ResponseMessage(200, "OK",responseMap));
     }
-
-    //멤버아이디로 로그인 횟수 가져오기
+    @Operation(description = "멤버아이디로 로그인 횟수 가져오기")
     @GetMapping("/{memberId}/count")
     public ResponseEntity<?> countLogin(@PathVariable Integer memberId){
 

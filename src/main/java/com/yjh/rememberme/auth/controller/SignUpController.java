@@ -5,6 +5,7 @@ import com.yjh.rememberme.auth.service.SignUpService;
 import com.yjh.rememberme.common.dto.ResponseMessage;
 import com.yjh.rememberme.database.entity.Member;
 import com.yjh.rememberme.database.repository.MemberRepository;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -35,7 +36,7 @@ public class SignUpController {
     public SignUpController(SignUpService signUpService) {
         this.signUpService = signUpService;
     }
-
+    @Operation(description = "회원 가입")
     @PostMapping
     public ResponseEntity<?> postSignUp(@RequestBody SignUpDTO signUp){
 

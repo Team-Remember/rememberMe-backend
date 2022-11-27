@@ -3,6 +3,7 @@ package com.yjh.rememberme.admin.controller;
 import com.yjh.rememberme.admin.service.AdminMemberService;
 import com.yjh.rememberme.common.dto.ResponseMessage;
 import com.yjh.rememberme.database.entity.Member;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -23,7 +24,7 @@ public class AdminMembercontroller {
     public AdminMembercontroller(AdminMemberService adminMemberService) {
         this.adminMemberService = adminMemberService;
     }
-
+    @Operation(description = "모든 회원 불러오기")
     @GetMapping("/member")
     public ResponseEntity<?> getAllMember(){
 
@@ -41,7 +42,7 @@ public class AdminMembercontroller {
                 .headers(headers)
                 .body(new ResponseMessage(201, "getAllMember succeed",responseMap));
     }
-
+    @Operation(description = "회원 정보 보기")
     @GetMapping("/{username}")
     public ResponseEntity<?> getMember(@PathVariable String username){
 
@@ -59,7 +60,7 @@ public class AdminMembercontroller {
                 .headers(headers)
                 .body(new ResponseMessage(201, "getMember succeed",responseMap));
     }
-
+    @Operation(description = "회원 수 불러오기")
     @GetMapping("/count")
     public ResponseEntity<?> countMember(){
         HttpHeaders headers = new HttpHeaders();
@@ -75,7 +76,7 @@ public class AdminMembercontroller {
                 .headers(headers)
                 .body(new ResponseMessage(201, "countMember succeed",responseMap));
     }
-
+    @Operation(description = "Status별 회원 수")
     @GetMapping("/count/{status}")
     public ResponseEntity<?> countByStatus(@PathVariable String status){
         HttpHeaders headers = new HttpHeaders();

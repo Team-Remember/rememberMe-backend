@@ -4,6 +4,7 @@ import com.yjh.rememberme.Member.service.MemberService;
 import com.yjh.rememberme.auth.dto.LoginDTO;
 import com.yjh.rememberme.auth.util.JwtUtil;
 import com.yjh.rememberme.common.dto.ResponseMessage;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -37,7 +38,7 @@ public class LoginController {
         this.authenticationManager = authenticationManager;
         this.memberService = memberService;
     }
-
+    @Operation(description = "로그인")
     @PostMapping
     public ResponseEntity<?> login(@RequestBody LoginDTO loginInfo){
         System.out.println(loginInfo);

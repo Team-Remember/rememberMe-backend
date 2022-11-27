@@ -5,6 +5,7 @@ import com.yjh.rememberme.character.service.CharacterService;
 import com.yjh.rememberme.Member.service.MemberService;
 import com.yjh.rememberme.common.dto.ResponseMessage;
 import com.yjh.rememberme.database.entity.Character;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -28,7 +29,7 @@ public class CharacterController {
         this.characterService = characterService;
         this.memberService = memberService;
     }
-
+    @Operation(description = "캐릭터 등록")
     @PostMapping("/{username}")
     public ResponseEntity<?> postCharacter(@PathVariable String username, @RequestBody CharacterDTO characterData) {
 
@@ -57,7 +58,7 @@ public class CharacterController {
                 .headers(headers)
                 .body(new ResponseMessage(201,"character posted",responseMap));
     }
-
+    @Operation(description = "캐릭터 수정")
     @PutMapping("/{username}")
     public ResponseEntity<?> putCharacter(@PathVariable String username, @RequestBody CharacterDTO characterData) {
 
@@ -86,7 +87,7 @@ public class CharacterController {
                 .headers(headers)
                 .body(new ResponseMessage(201,"putCharacter succeed",responseMap));
     }
-
+    @Operation(description = "캐릭터 불러오기")
     @GetMapping("find/{nickname}")
     public ResponseEntity<?> getCharacter(@PathVariable String nickname) {
 
