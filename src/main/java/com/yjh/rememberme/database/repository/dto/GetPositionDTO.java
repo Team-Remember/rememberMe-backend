@@ -1,6 +1,6 @@
 package com.yjh.rememberme.database.repository.dto;
 
-public interface getPositionDTO {
+public interface GetPositionDTO {
     Double getX();
     Double getY();
     Double getZ();
