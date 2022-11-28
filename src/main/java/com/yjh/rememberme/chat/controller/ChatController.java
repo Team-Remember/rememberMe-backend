@@ -6,6 +6,7 @@ import com.yjh.rememberme.chat.service.ChatService;
 import com.yjh.rememberme.common.dto.ResponseMessage;
 import com.yjh.rememberme.database.entity.Chat;
 import com.yjh.rememberme.database.repository.MemberRepository;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -30,10 +31,11 @@ public class ChatController {
         this.chatService = chatService;
         this.memberRepository = memberRepository;
     }
+    @Operation(description = "채팅 저장하기")
     //채팅 저장하기
     @PostMapping("/{username}")
     public ResponseEntity<?> postChat(@PathVariable String username, @RequestBody ChatDTO chatData) throws Exception {
-
+        System.out.println("채팅 저장하기");
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
         Map<String,Object> responseMap = new HashMap<>();
@@ -56,9 +58,11 @@ public class ChatController {
                 .headers(headers)
                 .body(new ResponseMessage(201,"chat posted",responseMap));
     }
+    @Operation(description = "AI 채팅 복원")
     //AI 복원 요청시
     @GetMapping("/")
     public ResponseEntity<?> getChat(@RequestParam("username") String username, @RequestParam("opponentname") String opponentname) {
+        System.out.println("AI 채팅 복원");
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         Map<String, Object> responseMap = new HashMap<>();
@@ -81,10 +85,11 @@ public class ChatController {
                 .headers(headers)
                 .body(new ResponseMessage(201,"getChat succeed",responseMap));
     }
-
+    @Operation(description = "복원AI와 채팅하기")
     //AI 챗봇 컨트롤러
     @PostMapping("/{username}/chat_bot")
     public ResponseEntity<?> postChatBot(@PathVariable String username, @RequestBody ChatBotDTO chatBotData) throws Exception{
+        System.out.println("복원AI와 채팅하기");
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         Map<String, Object> responseMap = new HashMap<>();
