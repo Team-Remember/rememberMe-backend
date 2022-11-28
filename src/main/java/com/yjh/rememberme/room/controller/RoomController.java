@@ -2,23 +2,28 @@ package com.yjh.rememberme.room.controller;
 
 import com.yjh.rememberme.common.dto.ResponseMessage;
 import com.yjh.rememberme.database.entity.Room;
+import com.yjh.rememberme.database.entity.RoomLike;
+import com.yjh.rememberme.room.dto.RoomLikeDTO;
 import com.yjh.rememberme.room.service.RoomService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/room")
 public class RoomController {
     private final RoomService roomService;
+
     @Autowired
     public RoomController(RoomService roomService) {
         this.roomService = roomService;
@@ -117,5 +122,21 @@ public class RoomController {
                 .ok()
                 .headers(headers)
                 .body(new ResponseMessage(201,"patchRoomPublic Succeed", responseMap));
+    }
+
+    @Operation(description = "방 이름으로 방 좋아요 누르기")
+    @PostMapping("/roomlike")
+    public ResponseEntity<?> roomLikeByRoomId(@RequestBody RoomLikeDTO RoomLikeData) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+        Map<String, Object> responseMap = new HashMap<>();
+
+        roomService.createRoomLike(RoomLikeData);
+
+
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .body("Succeed");
     }
 }
