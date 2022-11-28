@@ -38,7 +38,7 @@ public class Member {
 
     @NotNull
     @Email
-    @Column(name = "MEMBER_EMAIL", unique = true)
+    @Column(name = "MEMBER_EMAIL", unique = true, nullable = false)
     private String email;
 
     @NotNull

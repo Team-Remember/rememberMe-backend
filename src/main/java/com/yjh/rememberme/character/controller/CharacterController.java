@@ -32,7 +32,7 @@ public class CharacterController {
     @Operation(description = "캐릭터 등록")
     @PostMapping("/{username}")
     public ResponseEntity<?> postCharacter(@PathVariable String username, @RequestBody CharacterDTO characterData) {
-
+        System.out.println("캐릭터 등록");
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         Map<String, Object> responseMap = new HashMap<>();
@@ -61,7 +61,7 @@ public class CharacterController {
     @Operation(description = "캐릭터 수정")
     @PutMapping("/{username}")
     public ResponseEntity<?> putCharacter(@PathVariable String username, @RequestBody CharacterDTO characterData) {
-
+        System.out.println("캐릭터 수정");
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         Map<String, Object> responseMap = new HashMap<>();
@@ -90,7 +90,7 @@ public class CharacterController {
     @Operation(description = "캐릭터 불러오기")
     @GetMapping("find/{nickname}")
     public ResponseEntity<?> getCharacter(@PathVariable String nickname) {
-
+        System.out.println("캐릭터 불러오기");
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         Map<String, Object> responseMap = new HashMap<>();
