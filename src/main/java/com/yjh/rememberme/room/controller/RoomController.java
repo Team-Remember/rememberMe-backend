@@ -2,6 +2,7 @@ package com.yjh.rememberme.room.controller;
 
 import com.yjh.rememberme.common.dto.ResponseMessage;
 import com.yjh.rememberme.database.entity.Room;
+import com.yjh.rememberme.room.dto.CreateRoomDTO;
 import com.yjh.rememberme.room.service.RoomService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,15 +26,15 @@ public class RoomController {
     }
 
     @Operation(description = "방 생성")
-    @GetMapping
-    public ResponseEntity<?> createRoom(@RequestParam("username") String username, @RequestParam("roomname") String roomname) {
+    @PostMapping
+    public ResponseEntity<?> createRoom(@RequestBody CreateRoomDTO createRoomDTO) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         Map<String, Object> responseMap = new HashMap<>();
+        System.out.println("createRoomDTO = " + createRoomDTO);
 
-        int roomId = roomService.createRoom(username, roomname);
+        roomService.createRoom(createRoomDTO.getUsername(), createRoomDTO.getRoomname());
 
-        responseMap.put("roomId",roomId);
         return ResponseEntity
                 .ok()
                 .headers(headers)
@@ -63,7 +64,7 @@ public class RoomController {
         Map<String, Object> responseMap = new HashMap<>();
 
         Room room = roomService.getRoomByRoomId(roomid);
-//        int views = roomService.addRoomViews(roomid);
+        int views = roomService.addRoomViews(roomid);
 
         responseMap.put("room",room);
 
@@ -80,7 +81,7 @@ public class RoomController {
         Map<String, Object> responseMap = new HashMap<>();
 
         Room room = roomService.getRoomByRoomName(roomname);
-
+        int views = roomService.addRoomViewsByRoomname(roomname);
         responseMap.put("room",room);
 
         return ResponseEntity
