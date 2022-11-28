@@ -1,6 +1,6 @@
 # REmember me
 
-##메타버스 아카데미 융합프로젝트  Team.Remember
+메타버스 아카데미 융합프로젝트  Team.Remember
 
 ### REmember me?
 >추억 복원 프로젝트 REmember me 입니다.
