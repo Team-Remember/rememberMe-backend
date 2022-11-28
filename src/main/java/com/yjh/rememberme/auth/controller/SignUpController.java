@@ -4,13 +4,11 @@ import com.yjh.rememberme.auth.dto.SignUpDTO;
 import com.yjh.rememberme.auth.service.SignUpService;
 import com.yjh.rememberme.common.dto.ResponseMessage;
 import com.yjh.rememberme.database.entity.Member;
-import com.yjh.rememberme.database.repository.MemberRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
 import java.nio.charset.Charset;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,8 +37,8 @@ public class SignUpController {
     }
     @Operation(description = "회원 가입")
     @PostMapping
-    public ResponseEntity<?> postSignUp(@RequestBody SignUpDTO signUp){
-
+    public ResponseEntity<?> postSignUp(@RequestBody SignUpDTO signUp) {
+        System.out.println("회원 가입api");
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
         Map<String,Object> responseMap = new HashMap<>();
@@ -48,7 +47,6 @@ public class SignUpController {
         try {
             member = signUpService.postSignUp(signUp);
         } catch (Exception e){
-            System.out.println(e);
             responseMap.put("inputUserName",signUp.getUsername());
             responseMap.put("inputEmail",signUp.getEmail());
             return ResponseEntity

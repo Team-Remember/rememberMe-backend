@@ -41,6 +41,7 @@ public class LoginController {
     @Operation(description = "로그인")
     @PostMapping
     public ResponseEntity<?> login(@RequestBody LoginDTO loginInfo){
+        System.out.println("회원 로그인");
         System.out.println(loginInfo);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));

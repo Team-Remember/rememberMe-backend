@@ -30,14 +30,21 @@ public class ObjectController {
     @Operation(description = "오브젝트 등록")
     @PostMapping("/{roomid}")
     public ResponseEntity<?> postObjects(@PathVariable int roomid, @RequestBody DatasDTO datas) {
+        System.out.println("오브젝트 등록");
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         Map<String, java.lang.Object> responseMap = new HashMap<>();
         System.out.println("datas = " + datas);
         System.out.println("roomid = " + roomid);
-        objectService.deleteObjects(roomid);
-        objectService.postObjects(roomid,datas);
-
+        try {
+            objectService.deleteObjects(roomid);
+            objectService.postObjects(roomid,datas);
+        } catch (Exception e) {
+            return ResponseEntity
+                    .badRequest()
+                    .headers(headers)
+                    .body(new ResponseMessage(400,"postObjects Fail", responseMap));
+        }
         responseMap.put("roomId", roomid);
         return ResponseEntity
                 .ok()
@@ -48,11 +55,20 @@ public class ObjectController {
     @Operation(description = "오브젝트 불러오기")
     @GetMapping("/{roomid}")
     public ResponseEntity<?> getObjects(@PathVariable int roomid) {
+        System.out.println("오브젝트 불러오기");
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         Map<String, List<GetObjectDTO>> responseMap = new HashMap<>();
-
-        List<GetObjectDTO> objectList = objectService.getObjects(roomid);
+        List<GetObjectDTO> objectList = null;
+        try {
+        objectList = objectService.getObjects(roomid);
+        }
+        catch (Exception e) {
+            return ResponseEntity
+                    .badRequest()
+                    .headers(headers)
+                    .body("getObjects Fail");
+        }
 
         responseMap.put("datas", objectList);
         return ResponseEntity

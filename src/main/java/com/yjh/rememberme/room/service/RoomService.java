@@ -66,9 +66,14 @@ public class RoomService {
         return roomRepository.findAll();
     }
 
-//    public int addRoomViews(int roomid) {
-//        Room room = roomRepository.findById(roomid);
-//        int views =
-//        return views;
-//    }
+    public int addRoomViews(int roomid) {
+        Room room = roomRepository.findById(roomid);
+        int views = roomRepository.updateViews(roomid);
+        return views;
+    }
+    public int addRoomViewsByRoomname(String roomname) {
+        Room room = roomRepository.findByRoomName(roomname);
+        int views = roomRepository.updateViews(roomname);
+        return views;
+    }
 }
