@@ -15,10 +15,12 @@ public interface RoomRepository extends JpaRepository<Room, Integer> {
 
     Room findById(int roomid);
 
+    @Transactional
     @Modifying
     @Query("update Room r set r.roomLikes = r.roomLikes + 1 where r.roomName = :room_name")
     void updateLikes(@Param(value="room_name") String roomname);
 
+    @Transactional
     @Modifying
     @Query("update Room r set r.roomLikes = r.roomLikes - 1 where r.roomName = :room_name")
     void deleteLikes(@Param(value="room_name") String roomname);

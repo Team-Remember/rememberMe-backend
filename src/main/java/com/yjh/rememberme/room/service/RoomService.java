@@ -82,7 +82,6 @@ public class RoomService {
 
         Optional<RoomLike> like = Optional.ofNullable(roomLikeRepository.findByRoomNameAndMemberNickname(roomLikeData.getRoomName(), roomLikeData.getMemberNickname()));
         RoomLike like2 = roomLikeRepository.findByRoomNameAndMemberNickname(roomLikeData.getRoomName(), roomLikeData.getMemberNickname());
-        Room room = roomRepository.findByRoomName(roomLikeData.getRoomName());
 
         if(like.isEmpty()){
             try{

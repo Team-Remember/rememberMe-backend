@@ -167,17 +167,24 @@ public class RoomController {
 
     @Operation(description = "방 이름으로 방 좋아요 누르기")
     @PostMapping("/roomlike")
-    public ResponseEntity<?> roomLikeByRoomId(@RequestBody RoomLikeDTO RoomLikeData) {
+    public ResponseEntity<?> roomLikeByRoomName(@RequestBody RoomLikeDTO RoomLikeData) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         Map<String, Object> responseMap = new HashMap<>();
 
-        roomService.createRoomLike(RoomLikeData);
+        try {
+            roomService.createRoomLike(RoomLikeData);
+        }catch (Exception e) {
+            return ResponseEntity
+                    .badRequest()
+                    .headers(headers)
+                    .body("roomLikeByRoomId Fail");
+        }
 
 
         return ResponseEntity
                 .ok()
                 .headers(headers)
-                .body("Succeed");
+                .body("roomLikeByRoomId Succeed");
     }
 }
