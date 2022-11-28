@@ -1,5 +1,8 @@
 package com.yjh.rememberme.common.dto;
 
+import com.yjh.rememberme.database.repository.dto.GetObjectDTO;
+
+import java.util.List;
 import java.util.Map;
 
 public class ResponseMessage {

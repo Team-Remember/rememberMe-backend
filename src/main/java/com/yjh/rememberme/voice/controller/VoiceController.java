@@ -38,8 +38,15 @@ public class VoiceController {
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         Map<String, Object> responseMap = new HashMap<>();
         Voice voice = null;
-        voice = voiceService.postVoice(username, postVoiceDTO);
-
+        try {
+            voice = voiceService.postVoice(username, postVoiceDTO);
+        }
+        catch (Exception e) {
+            return ResponseEntity
+                    .badRequest()
+                    .headers(headers)
+                    .body("postVoice Fail");
+        }
         responseMap.put("voicePath",voice.getVoicePath());
 
         return ResponseEntity
@@ -54,15 +61,29 @@ public class VoiceController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         Map<String, Object> responseMap = new HashMap<>();
-
-        Map<String, Object> map = voiceService.putMap(username);
-
+        Map<String, Object> map;
+        try {
+            map = voiceService.putMap(username);
+        }
+        catch (Exception e) {
+            return ResponseEntity
+                    .badRequest()
+                    .headers(headers)
+                    .body("getVoice Fail");
+        }
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<?> requestEntity = new HttpEntity<>(map, headers);
         String url = "https://be06-119-194-163-123.jp.ngrok.io/voice_chat_bot_inference";
-
-        ResponseEntity<?> resultMap = restTemplate.postForEntity(url, requestEntity, Map.class);
-
+        ResponseEntity<?> resultMap;
+        try {
+            resultMap = restTemplate.postForEntity(url, requestEntity, Map.class);
+        }
+        catch (Exception e) {
+            return ResponseEntity
+                    .badRequest()
+                    .headers(headers)
+                    .body("getVoice Fail");
+        }
         responseMap.put("result",resultMap);
 
         return ResponseEntity
