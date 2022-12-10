@@ -19,6 +19,10 @@ public class Character {
     private Integer id;
 
     @NotNull
+    @Column(name = "CHARACTER_GENDER_NUM", nullable = false)
+    private String gender;
+
+    @NotNull
     @Column(name = "CHARACTER_HAIR_NUM", nullable = false)
     private String hairNum;
 
@@ -49,8 +53,9 @@ public class Character {
     private Member member;
 
     @Builder
-    public Character(Integer id, String hairNum, String jacketNum, String chestNum, String tieNum, String legsNum, String feetNum, Member member) {
+    public Character(Integer id, String gender, String hairNum, String jacketNum, String chestNum, String tieNum, String legsNum, String feetNum, Member member) {
         this.id = id;
+        this.gender = gender;
         this.hairNum = hairNum;
         this.jacketNum = jacketNum;
         this.chestNum = chestNum;
