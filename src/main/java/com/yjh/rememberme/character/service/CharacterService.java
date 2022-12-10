@@ -28,6 +28,7 @@ public class CharacterService {
         Member member = memberRepository.findByUsername(username);
         character = characterRepository.save(new Character(
                 0,
+                characterData.getGender(),
                 characterData.getHairNum(),
                 characterData.getJacketNum(),
                 characterData.getChestNum(),
@@ -45,6 +46,7 @@ public class CharacterService {
         Character character = null;
         Member member = memberRepository.findByUsername(username);
         character = characterRepository.findByMember(member);
+        character.setGender((characterData.getGender()));
         character.setChestNum(characterData.getChestNum());
         character.setFeetNum(characterData.getFeetNum());
         character.setLegsNum(characterData.getLegsNum());

@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CharacterDTO {
     private String nickname;
+    private String gender;
     private String hairNum;
     private String jacketNum;
     private String chestNum;
