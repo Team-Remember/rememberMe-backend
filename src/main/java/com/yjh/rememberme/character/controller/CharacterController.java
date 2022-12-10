@@ -107,6 +107,7 @@ public class CharacterController {
         }
 
         responseMap.put("nickname", nickname);
+        responseMap.put("gender", character.getGender());
         responseMap.put("hairNum", character.getHairNum());
         responseMap.put("jacketNum", character.getJacketNum());
         responseMap.put("chestNum", character.getChestNum());
