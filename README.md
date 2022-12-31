@@ -29,3 +29,7 @@
 
 ## 자세한 프로젝트 진행 방식은 Wiki에서
 >https://github.com/Team-Remember/rememberMe-backend/wiki
+
+
+## 프로젝트 시연영상
+>https://drive.google.com/file/d/1kpTh_6ODh1tL-OIDO52VDgOy9LIwe9iL/view
